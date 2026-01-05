@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "default": {
+      "background": "surface",
+      "border": "border",
+      "text": "onSurface"
+    }
+  },
+  "defaults": {
+    "variant": "default"
+  },
+  "spacing": {
+    "itemPadding": "m",
+    "contentPadding": "m",
+    "gap": "xs"
+  },
+  "radius": "medium",
+  "animation": {
+    "duration": 200,
+    "easing": "easeInOut"
+  }
+}

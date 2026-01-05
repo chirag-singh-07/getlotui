@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../theme/tokens.dart';
+import '../theme/crossui_theme.dart';
 
-enum CrossUIAlertVariant { info, success, warning, destructive }
+enum CrossUIAlertVariant { info, success, warning, error }
 
 class CrossUIAlert extends StatelessWidget {
   final String title;
@@ -19,50 +20,48 @@ class CrossUIAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color borderColor;
-    Color backgroundColor;
-    Color iconColor;
+    // Get colors from theme
+    final theme = context.theme;
+    Color baseColor;
     IconData defaultIcon;
 
     switch (variant) {
       case CrossUIAlertVariant.success:
-        borderColor = CrossUITokens.success;
-        backgroundColor = CrossUITokens.successLight;
-        iconColor = CrossUITokens.onSuccessLight;
+        baseColor = theme.success;
         defaultIcon = Icons.check_circle_outline;
         break;
       case CrossUIAlertVariant.warning:
-        borderColor = CrossUITokens.warning;
-        backgroundColor = CrossUITokens.warningLight;
-        iconColor = CrossUITokens.onWarningLight;
+        baseColor = theme.warning;
         defaultIcon = Icons.warning_amber_rounded;
         break;
-      case CrossUIAlertVariant.destructive:
-        borderColor = CrossUITokens.danger;
-        backgroundColor = CrossUITokens.dangerLight;
-        iconColor = CrossUITokens.onDangerLight;
+      case CrossUIAlertVariant.error:
+        baseColor = theme.danger;
         defaultIcon = Icons.error_outline;
         break;
       case CrossUIAlertVariant.info:
-      default:
-        borderColor = CrossUITokens.info;
-        backgroundColor = CrossUITokens.infoLight;
-        iconColor = CrossUITokens.onInfoLight;
+        baseColor = theme.info;
         defaultIcon = Icons.info_outline;
         break;
     }
+
+    // Determine derived colors
+    // Using opacity for background allows it to look good on both light and dark themes
+    final backgroundColor = baseColor.withValues(alpha: 0.15);
+    final borderColor = baseColor.withValues(alpha: 0.5);
+    final foregroundColor =
+        baseColor; // Use the main color for text/icon for good contrast on low opacity bg
 
     return Container(
       padding: const EdgeInsets.all(CrossUITokens.spacingM),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(CrossUITokens.radiusMedium),
-        border: Border.all(color: borderColor.withOpacity(0.5)),
+        border: Border.all(color: borderColor),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon ?? defaultIcon, color: iconColor, size: 20),
+          Icon(icon ?? defaultIcon, color: foregroundColor, size: 20),
           const SizedBox(width: CrossUITokens.spacingSm),
           Expanded(
             child: Column(
@@ -73,7 +72,7 @@ class CrossUIAlert extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: CrossUITokens.fontSizeBase,
-                    color: iconColor,
+                    color: foregroundColor,
                   ),
                 ),
                 if (description != null) ...[
@@ -82,7 +81,7 @@ class CrossUIAlert extends StatelessWidget {
                     description!,
                     style: TextStyle(
                       fontSize: CrossUITokens.fontSizeSm,
-                      color: iconColor.withOpacity(0.8),
+                      color: foregroundColor.withValues(alpha: 0.8),
                     ),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import { Toaster as DefaultToaster } from "@/components/ui/toaster";
 import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <FrameworkProvider>{children}</FrameworkProvider>
         <Toaster />
+        <DefaultToaster />
         <Analytics />
       </body>
     </html>

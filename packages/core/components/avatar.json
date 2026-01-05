@@ -1,0 +1,21 @@
+{
+  "sizes": {
+    "xs": { "size": 24, "fontSize": 10 },
+    "sm": { "size": 32, "fontSize": 12 },
+    "md": { "size": 40, "fontSize": 14 },
+    "lg": { "size": 48, "fontSize": 16 },
+    "xl": { "size": 64, "fontSize": 20 },
+    "2xl": { "size": 80, "fontSize": 24 }
+  },
+  "variants": {
+    "default": {
+      "background": "secondaryLight",
+      "text": "onSecondaryLight",
+      "border": "border"
+    }
+  },
+  "defaults": {
+    "size": "md",
+    "variant": "default"
+  }
+}

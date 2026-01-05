@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Github, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { MobileSidebar } from "@/components/mobile-sidebar"
-import { usePathname } from "next/navigation"
+import Link from "next/link";
+import { Github, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MobileSidebar } from "@/components/mobile-sidebar";
+import { usePathname } from "next/navigation";
 
 export function SiteHeader() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const pathname = usePathname()
-  const isDocsPage = pathname?.startsWith("/docs")
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const pathname = usePathname();
+  const isDocsPage = pathname?.startsWith("/docs");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -77,19 +77,38 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </Button>
 
-          <Button variant="ghost" size="icon" asChild className="hidden sm:inline-flex">
-            <Link href="https://github.com" target="_blank" rel="noreferrer">
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="hidden sm:inline-flex"
+          >
+            <Link
+              href="https://github.com/chirag-singh-07/crossui"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Github className="h-5 w-5" />
               <span className="sr-only">GitHub</span>
             </Link>
           </Button>
 
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+          >
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </Button>
@@ -156,8 +175,17 @@ export function SiteHeader() {
                 Theming
               </Link>
               <div className="border-t border-border/40 pt-4">
-                <Button variant="outline" size="sm" asChild className="w-full bg-transparent">
-                  <Link href="https://github.com" target="_blank" rel="noreferrer">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full bg-transparent"
+                >
+                  <Link
+                    href="https://github.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <Github className="h-4 w-4 mr-2" />
                     GitHub
                   </Link>
@@ -168,5 +196,5 @@ export function SiteHeader() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }

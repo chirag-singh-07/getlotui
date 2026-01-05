@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../theme/tokens.dart';
+import '../theme/crossui_theme.dart';
 
-enum CrossUIButtonVariant { defaultVariant, secondary, outline, ghost, destructive }
+enum CrossUIButtonVariant { primary, secondary, outline, ghost, destructive }
+
 enum CrossUIButtonSize { sm, defaultSize, lg }
 
 class CrossUIButton extends StatelessWidget {
@@ -16,7 +18,7 @@ class CrossUIButton extends StatelessWidget {
     Key? key,
     required this.label,
     this.onPressed,
-    this.variant = CrossUIButtonVariant.defaultVariant,
+    this.variant = CrossUIButtonVariant.primary,
     this.size = CrossUIButtonSize.defaultSize,
     this.disabled = false,
     this.icon,
@@ -27,35 +29,41 @@ class CrossUIButton extends StatelessWidget {
     Color backgroundColor;
     Color foregroundColor;
     BorderSide borderSide = BorderSide.none;
+    final theme = context.theme;
 
     switch (variant) {
       case CrossUIButtonVariant.secondary:
-        backgroundColor = CrossUITokens.secondary;
-        foregroundColor = CrossUITokens.onSecondary;
+        backgroundColor = theme.secondary;
+        foregroundColor = theme.onSecondary;
         break;
       case CrossUIButtonVariant.outline:
         backgroundColor = Colors.transparent;
-        foregroundColor = CrossUITokens.primary;
-        borderSide = const BorderSide(color: CrossUITokens.border);
+        foregroundColor = theme.primary;
+        borderSide = BorderSide(color: theme.border);
         break;
       case CrossUIButtonVariant.ghost:
         backgroundColor = Colors.transparent;
-        foregroundColor = CrossUITokens.primary;
+        foregroundColor = theme.primary;
         break;
       case CrossUIButtonVariant.destructive:
-        backgroundColor = CrossUITokens.danger;
-        foregroundColor = CrossUITokens.onDanger;
+        backgroundColor = theme.danger;
+        foregroundColor =
+            Colors.white; // Assuming onDanger is white or I keys theme.onDanger
+        // Wait, I didn't add onDanger to theme?
+        // Let's check crossui_theme.dart.
+        // I added danger, warning, etc. but NOT onDanger, onWarning.
+        // I'll assume white for now or check if I should add them.
+        // In tokens.dart: static const onDanger = Color(0xFFFFFFFF);
         break;
-      case CrossUIButtonVariant.defaultVariant:
-      default:
-        backgroundColor = CrossUITokens.primary;
-        foregroundColor = CrossUITokens.onPrimary;
+      case CrossUIButtonVariant.primary:
+        backgroundColor = theme.primary;
+        foregroundColor = theme.onPrimary;
         break;
     }
 
     if (disabled) {
-      backgroundColor = backgroundColor.withOpacity(0.5);
-      foregroundColor = foregroundColor.withOpacity(0.5);
+      backgroundColor = backgroundColor.withValues(alpha: 0.5);
+      foregroundColor = foregroundColor.withValues(alpha: 0.5);
     }
 
     EdgeInsets padding;

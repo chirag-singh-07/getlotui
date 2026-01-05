@@ -7,307 +7,362 @@ import {
   Type,
   Sparkles,
   CheckCircle2,
+  FileCode,
+  Zap,
+  RefreshCw,
+  ArrowRight,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { InstallationCommand } from "@/components/installation-command";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 export default function ThemingPage() {
-  const tokens = {
-    colors: [
-      { name: "primary", value: "#6366f1", desc: "Main brand color" },
-      { name: "secondary", value: "#10b981", desc: "Secondary accent" },
-      { name: "success", value: "#22c55e", desc: "Success states" },
-      { name: "warning", value: "#f59e0b", desc: "Warning states" },
-      { name: "danger", value: "#ef4444", desc: "Error states" },
-      { name: "info", value: "#3b82f6", desc: "Info states" },
-    ],
-    radius: [
-      { name: "small", value: "6px" },
-      { name: "medium", value: "8px" },
-      { name: "large", value: "16px" },
-      { name: "xl", value: "24px" },
-      { name: "round", value: "9999px" },
-    ],
-    spacing: [
-      { name: "xs", value: "4px" },
-      { name: "s", value: "8px" },
-      { name: "sm", value: "12px" },
-      { name: "m", value: "16px" },
-      { name: "l", value: "24px" },
-      { name: "xl", value: "32px" },
-    ],
-  };
-
   return (
-    <div className="max-w-4xl mx-auto space-y-16 pb-20 px-4 md:px-0 text-left">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="space-y-16 pb-20"
+    >
       {/* Hero Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-6 text-center lg:text-left"
-      >
+      <motion.div variants={item} className="space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
           <Palette className="h-3.5 w-3.5" />
-          <span>Configurable Design</span>
+          <span>Design System Architecture</span>
         </div>
         <div className="space-y-4">
-          <h1
-            id="theming"
-            className="text-5xl md:text-7xl font-black tracking-tight bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70"
-          >
-            Theming
+          <h1 className="text-5xl md:text-6xl font-black tracking-tight bg-clip-text text-transparent bg-linear-to-r from-foreground to-foreground/70">
+            Theming Overview
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
-            Customize every aspect of your UI with our flexible token-driven
-            theming system. Inspired by Shadcn UI.
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
+            CrossUI uses a <strong>Token-First</strong> approach to theming. We
+            separate visual primitives from component logic, ensuring your brand
+            identity remains consistent across every platform.
           </p>
         </div>
       </motion.div>
 
-      {/* Theme Config Example */}
-      <section className="space-y-6">
-        <h2
-          id="theme-configuration"
-          className="text-3xl font-bold tracking-tight"
-        >
-          Theme Configuration
-        </h2>
-        <p className="text-muted-foreground leading-relaxed">
-          CrossUI uses a centralized theme configuration where you define your
-          design tokens. Everything in your app will automatically react to
-          these values.
-        </p>
-        <InstallationCommand
-          language="typescript"
-          title="theme/config.ts"
-          code={`export const theme = {
-  colors: {
-    primary: '#6366f1',
-    secondary: '#10b981',
-    background: '#ffffff',
-    foreground: '#0f172a',
-  },
-  radius: {
-    small: 6,
-    medium: 8,
-    large: 16,
-  },
-  spacing: {
-    s: 8,
-    m: 16,
-    l: 24,
-  }
-}`}
-        />
-      </section>
-
-      {/* Colors Section */}
-      <section className="space-y-8 pt-12 border-t border-border/50">
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <Palette className="h-6 w-6 text-primary" />
-            <h2 id="colors" className="text-3xl font-bold tracking-tight">
-              Colors
-            </h2>
-          </div>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Our semantic color palette ensures consistent feedback across your
-            entire application.
+      {/* The Mental Model Section */}
+      <motion.div
+        variants={item}
+        className="space-y-8 pt-8 border-t border-border/50"
+      >
+        <div className="space-y-4">
+          <h2 className="text-3xl font-bold tracking-tight">
+            The Mental Model
+          </h2>
+          <p className="text-muted-foreground leading-relaxed max-w-3xl">
+            In CrossUI, a "Theme" is not just a stylesheet. it's a collection of
+            mathematical tokens that define the boundaries of your design
+            system. By centralizing these values, you can shift the visual
+            weight of your entire application without touching a single
+            component file.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {tokens.colors.map((color) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Foundation",
+              desc: "Raw values like #hex codes, pixel scales, and font stacks. These are the building blocks of your system.",
+              icon: Zap,
+              detail:
+                "Define your base colors (e.g., Indigo-500) and scale (e.g., 4px steps).",
+            },
+            {
+              title: "Semantic Tokens",
+              desc: "Contextual names like 'primary', 'surface', and 'border-radius-m' that point back to foundation values.",
+              icon: RefreshCw,
+              detail:
+                "Change the 'primary' token to point to a different brand color instantly.",
+            },
+            {
+              title: "Component Styles",
+              desc: "How tokens are combined into high-level UI elements via Class Variance Authority (CVA).",
+              icon: FileCode,
+              detail:
+                "Adjust variants like 'outline' or 'ghost' based on semantic tokens.",
+            },
+          ].map((box, i) => (
             <Card
-              key={color.name}
-              className="p-4 flex items-center gap-4 bg-black/5 dark:bg-white/5 border-border/50 hover:bg-muted/50 transition-all cursor-default"
+              key={i}
+              className="p-6 space-y-4 bg-muted/20 border-border/50 hover:bg-muted/30 transition-colors"
             >
-              <div
-                className="w-12 h-12 rounded-xl border border-white/20 shadow-lg shrink-0"
-                style={{ backgroundColor: color.value }}
-              />
-              <div className="space-y-1">
-                <span className="text-sm font-black uppercase tracking-widest block">
-                  {color.name}
-                </span>
-                <span className="text-xs font-mono text-muted-foreground">
-                  {color.value}
-                </span>
-                <p className="text-[10px] text-muted-foreground italic">
-                  {color.desc}
+              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                <box.icon className="h-5 w-5" />
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-bold">{box.title}</h4>
+                <p className="text-sm text-balance text-muted-foreground leading-relaxed">
+                  {box.desc}
                 </p>
+                <div className="pt-2 text-[10px] font-mono text-primary/70 italic leading-snug">
+                  {box.detail}
+                </div>
               </div>
             </Card>
           ))}
         </div>
-      </section>
+      </motion.div>
 
-      {/* Spacing Section */}
-      <section className="space-y-8 pt-12 border-t border-border/50">
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <Ruler className="h-6 w-6 text-primary" />
-            <h2
-              id="spacing"
-              className="text-3xl font-bold tracking-tight text-left"
-            >
-              Spacing
-            </h2>
-          </div>
-          <p className="text-muted-foreground text-lg leading-relaxed text-left">
-            A balanced spacing system creates visual rhythm and professional
-            layouts.
-          </p>
-        </div>
-
+      {/* Configuration Files Section */}
+      <motion.div variants={item} className="space-y-8 pt-8">
         <div className="space-y-4">
-          {tokens.spacing.map((s) => (
-            <div key={s.name} className="flex items-center gap-6 group">
-              <span className="w-12 text-sm font-black uppercase tracking-widest text-muted-foreground">
-                {s.name}
-              </span>
-              <div className="grow h-6 bg-muted/30 rounded-full overflow-hidden border border-border/50 group-hover:border-primary/30 transition-all">
-                <div
-                  className="h-full bg-primary/20 group-hover:bg-primary/40 transition-all relative"
-                  style={{ width: parseInt(s.value) * 4 }}
-                >
-                  <div className="absolute right-2 inset-y-0 flex items-center">
-                    <span className="text-[10px] font-mono font-bold text-primary">
-                      {s.value}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Radius Section */}
-      <section className="space-y-8 pt-12 border-t border-border/50">
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <Radius className="h-6 w-6 text-primary" />
-            <h2
-              id="radius"
-              className="text-3xl font-bold tracking-tight text-left"
-            >
-              Border Radius
-            </h2>
-          </div>
-          <p className="text-muted-foreground text-lg leading-relaxed text-left">
-            Control the "feel" of your UI from sharp and professional to soft
-            and modern.
+          <h2 className="text-3xl font-bold tracking-tight">
+            Configuration Files
+          </h2>
+          <p className="text-muted-foreground leading-relaxed">
+            When you run{" "}
+            <code className="bg-muted px-1.5 py-0.5 rounded">
+              npx crossui init
+            </code>
+            , two primary files are created to manage your design system.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {tokens.radius.map((r) => (
-            <div key={r.name} className="space-y-3 text-center">
-              <div
-                className="aspect-square bg-primary/10 border-2 border-primary/20 flex items-center justify-center transition-all hover:scale-105"
-                style={{ borderRadius: r.value }}
-              >
-                <div className="w-6 h-6 border-t-4 border-l-4 border-primary rounded-ss-[4px]" />
+        <div className="space-y-12">
+          {/* theme.config.ts */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold text-xs italic">
+                TS
               </div>
-              <div className="space-y-1">
-                <span className="text-xs font-black uppercase tracking-widest block">
-                  {r.name}
-                </span>
-                <span className="text-[10px] font-mono text-muted-foreground">
-                  {r.value}
-                </span>
-              </div>
+              <h3 className="text-xl font-bold">theme/config.ts</h3>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Typography Section */}
-      <section className="space-y-8 pt-12 border-t border-border/50">
-        <div className="space-y-10 group">
-          <div className="flex items-center gap-3">
-            <Type className="h-6 w-6 text-primary" />
-            <h2
-              id="typography"
-              className="text-3xl font-bold tracking-tight text-left"
-            >
-              Typography
-            </h2>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              This is the runtime configuration. It exports a typed object that
+              your components use for dynamic styling, animations, and
+              conditional logic.
+            </p>
+            <InstallationCommand
+              language="typescript"
+              title="theme/config.ts"
+              code={`export const theme = {
+  colors: {
+    primary: '#6366f1',
+    foreground: '#0f172a',
+    background: '#ffffff',
+  },
+  radius: {
+    m: 8,
+    xl: 24,
+  },
+  spacing: {
+    gap: 16,
+    padding: 24,
+  }
+}`}
+            />
           </div>
+
+          {/* crossui.json */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 font-bold text-xs italic">
+                JSON
+              </div>
+              <h3 className="text-xl font-bold">crossui.json</h3>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              The CLI configuration. This tells the generator how to map tokens
+              into platform-specific code (e.g., Tailwind classes for Web vs.
+              Custom styles for Flutter).
+            </p>
+            <InstallationCommand
+              language="json"
+              title="crossui.json"
+              code={`{
+  "framework": "expo",
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "styles/globals.css"
+  },
+  "aliases": {
+    "ui": "@/components/ui"
+  }
+}`}
+            />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Advanced Customization Section */}
+      <motion.div
+        variants={item}
+        className="space-y-8 pt-12 border-t border-border/50 text-left"
+      >
+        <div className="space-y-4 text-left">
+          <h2 className="text-3xl font-bold tracking-tight text-left">
+            Advanced Customization
+          </h2>
+          <p className="text-muted-foreground leading-relaxed text-left">
+            Total control means you can update your entire app's look by
+            modifying the centralized config files. CrossUI isn't just about
+            changing colors; it's about defining the logic of your design.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <div className="group/item border-b border-border/50 pb-6 transition-colors hover:border-primary/30">
-              <span className="text-xs font-black uppercase tracking-widest text-primary mb-4 block">
-                Heading Large
-              </span>
-              <h1 className="text-6xl font-black tracking-tighter leading-none">
-                The quick brown fox
-              </h1>
-              <p className="mt-2 text-sm text-muted-foreground font-mono italic">
-                size: 60px / weight: 900
+            <div className="space-y-4">
+              <h4 className="font-bold flex items-center gap-2 text-left">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                Variant Logic (CVA)
+              </h4>
+              <p className="text-sm text-muted-foreground leading-relaxed text-left">
+                Most components use <strong>Class Variance Authority</strong>.
+                This allows you to define complex states (hover, focus, active)
+                using standard CSS classes or Tailwind tokens in a type-safe
+                way.
               </p>
             </div>
-            <div className="group/item border-b border-border/50 pb-6 transition-colors hover:border-primary/30">
-              <span className="text-xs font-black uppercase tracking-widest text-primary mb-4 block">
-                Heading Medium
-              </span>
-              <h2
-                id="typography-medium"
-                className="text-4xl font-bold tracking-tight"
-              >
-                Jumps over the lazy dog
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground font-mono italic">
-                size: 36px / weight: 700
-              </p>
-            </div>
-            <div className="group/item border-b border-border/50 pb-6 transition-colors hover:border-primary/30">
-              <span className="text-xs font-black uppercase tracking-widest text-primary mb-4 block">
-                Body Default
-              </span>
-              <p className="text-lg leading-relaxed text-foreground/80">
-                Design system tokens allow you to iterate faster with
-                confidence. Change a single value and see your whole app adapt.
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground font-mono italic">
-                size: 18px / weight: 400
+            <div className="space-y-4 text-left">
+              <h4 className="font-bold flex items-center gap-2 text-left text-left">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary text-left" />
+                Automatic CSS Variable Sync
+              </h4>
+              <p className="text-sm text-muted-foreground leading-relaxed text-left text-left">
+                The CLI automatically maps your{" "}
+                <code className="bg-muted px-1 rounded text-xs">
+                  theme/config.ts
+                </code>
+                to CSS variables in your{" "}
+                <code className="bg-muted px-1 rounded text-xs text-left">
+                  globals.css
+                </code>
+                . This ensures that native components and custom CSS stay in
+                perfect sync.
               </p>
             </div>
           </div>
+          <Card className="p-8 bg-zinc-950 text-zinc-300 font-mono text-xs leading-relaxed border-border/50">
+            <div className="flex gap-2 mb-4">
+              <div className="w-3 h-3 rounded-full bg-red-500/50" />
+              <div className="w-3 h-3 rounded-full bg-amber-500/50" />
+              <div className="w-3 h-3 rounded-full bg-emerald-500/50" />
+            </div>
+            <div>
+              <span className="text-purple-400 font-bold">const</span>{" "}
+              buttonVariants = <span className="text-amber-400">cva</span>(
+              <span className="text-emerald-400">"..."</span>, {"{"}
+              <br />
+              &nbsp;&nbsp;variants: {"{"}
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;variant: {"{"}
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;primary:{" "}
+              <span className="text-emerald-400">"bg-primary text-white"</span>,
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outline:{" "}
+              <span className="text-emerald-400">"border border-primary"</span>,
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;{"}"},
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;size: {"{"}
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sm:{" "}
+              <span className="text-emerald-400">"h-9 px-3 rounded-md"</span>,
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;{"}"}
+              <br />
+              &nbsp;&nbsp;{"}"}
+              <br />
+              {"}"})
+            </div>
+          </Card>
         </div>
-      </section>
+      </motion.div>
 
-      {/* Best Practices */}
-      <div className="pt-24 border-t border-border/50">
-        <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 space-y-4">
-          <h4 className="text-xl font-bold flex items-center gap-2">
-            <CheckCircle2 className="h-6 w-6 text-primary" />
-            Theming Best Practices
-          </h4>
+      {/* Best Practices Section */}
+      <motion.div variants={item} className="pt-24 border-t border-border/50">
+        <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 space-y-6">
+          <div className="space-y-2">
+            <h4 className="text-2xl font-bold flex items-center gap-2">
+              <CheckCircle2 className="h-6 w-6 text-primary" />
+              Theming Best Practices
+            </h4>
+            <p className="text-sm text-muted-foreground">
+              Follow these rules to keep your codebase maintainable and
+              scalable.
+            </p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
             <div className="space-y-2">
-              <span className="text-sm font-black uppercase tracking-widest text-primary">
+              <span className="text-xs font-black uppercase tracking-widest text-primary">
                 Avoid Hardcoding
               </span>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Never use #hex codes or absolute pixel values in your
-                components. Use `theme.colors.primary` instead.
+                components. Always reference{" "}
+                <code className="bg-muted px-1 text-xs">
+                  theme.colors.primary
+                </code>{" "}
+                to ensure global updates are possible.
               </p>
             </div>
             <div className="space-y-2 text-left">
-              <span className="text-sm font-black uppercase tracking-widest text-primary text-left">
+              <span className="text-xs font-black uppercase tracking-widest text-primary text-left">
                 Consistency Over Variation
               </span>
               <p className="text-sm text-muted-foreground leading-relaxed text-left">
-                Stick to your defined tokens for spacing and radius. This
-                ensures your app feels polished and unified.
+                Stick to your defined tokens for spacing and radius. If a
+                designer asks for 7px, try to fit it into the nearest token
+                (e.g. 6px or 8px) to maintain rhythm.
               </p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+
+      {/* Explore Specifics */}
+      <motion.div variants={item} className="pt-16 space-y-8">
+        <h3 className="text-2xl font-bold tracking-tight">
+          Deep Dive into Tokens
+        </h3>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              title: "Color Palette",
+              icon: Palette,
+              href: "/docs/theming/colors",
+            },
+            {
+              title: "Typography Stack",
+              icon: Type,
+              href: "/docs/theming/typography",
+            },
+            {
+              title: "Dark Mode Setup",
+              icon: Sparkles,
+              href: "/docs/theming/dark-mode",
+            },
+          ].map((link, i) => (
+            <Link key={i} href={link.href}>
+              <Card className="p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors group border-border/50">
+                <div className="h-8 w-8 rounded bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                  <link.icon className="h-4 w-4" />
+                </div>
+                <span className="text-sm font-semibold">{link.title}</span>
+                <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }

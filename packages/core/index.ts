@@ -7,7 +7,12 @@ import otpInputDef from "./components/otp-input.json";
 import checkboxDef from "./components/checkbox.json";
 import radioDef from "./components/radio.json";
 import switchDef from "./components/switch.json";
+import accordionDef from "./components/accordion.json";
+import alertDialogDef from "./components/alert-dialog.json";
+import avatarDef from "./components/avatar.json";
+import badgeDef from "./components/badge.json";
 import pressAnim from "./animations/press.json";
+import dropdownDef from "./components/dropdown.json";
 
 // Export Tokens
 export const Tokens = {
@@ -15,8 +20,6 @@ export const Tokens = {
   spacing,
   radius,
 };
-
-
 
 // Export Component Definitions (Contracts)
 export const Components = {
@@ -26,6 +29,11 @@ export const Components = {
   Checkbox: checkboxDef,
   Radio: radioDef,
   Switch: switchDef,
+  Accordion: accordionDef,
+  AlertDialog: alertDialogDef,
+  Avatar: avatarDef,
+  Badge: badgeDef,
+  Dropdown: dropdownDef,
 };
 
 // Export Animation configs

@@ -1,40 +1,66 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import { ComponentPreview } from "@/components/component-preview";
 import { InstallationCommand } from "@/components/installation-command";
-import { motion } from "framer-motion";
-import { toast } from "sonner";
 import { useFramework } from "@/context/framework-context";
+import { motion } from "framer-motion";
 
 export default function ToastPage() {
   const { framework } = useFramework();
+  const { toast } = useToast();
 
-  const providerCode = `import { ToastProvider } from '@crossui/expo'
+  const expoUsage = `import { useToast, ToastProvider } from "@crossui/expo";
 
-export default function App() {
-  return (
-    <ToastProvider>
-      <Main />
-    </ToastProvider>
-  )
-}`;
-
-  const usageCode = `import { useToast } from '@crossui/expo'
-
-export function MyComponent() {
-  const { show } = useToast()
-
+function Demo() {
+  const { toast } = useToast();
+  
   return (
     <Button 
-      title="Show Toast" 
-      onPress={() => show("Success!", { variant: "success" })} 
-    />
+      onPress={() => toast({ 
+        title: "Success", 
+        description: "Your profile has been updated.",
+        type: "success"
+      })}
+    >
+      Show Toast
+    </Button>
+  );
+}
+
+export default () => (
+  <ToastProvider>
+    <Demo />
+  </ToastProvider>
+)`;
+
+  const flutterUsage = `CrossUIToast.show(
+  context,
+  title: 'Success',
+  description: 'Your profile has been updated.',
+  variant: CrossUIToastVariant.success,
+);`;
+
+  const webUsage = `import { useToast } from "@/components/ui/use-toast"
+
+export default function Demo() {
+  const { toast } = useToast()
+
+  return (
+    <Button
+      onClick={() => {
+        toast({
+          title: "Success",
+          description: "Your profile has been updated.",
+        })
+      }}
+    >
+      Show Toast
+    </Button>
   )
 }`;
-
-  const flutterUsage = `// Coming soon for Flutter\n// Standard Flutter SnackBar is supported`;
-  const webUsage = `import { toast } from "sonner"\n\n// Use in your component\ntoast.success("Success!")`;
 
   const getUsageContent = () => {
     switch (framework) {
@@ -44,7 +70,7 @@ export function MyComponent() {
         return { code: webUsage, lang: "tsx", title: "example.tsx" };
       case "expo":
       default:
-        return { code: usageCode, lang: "tsx", title: "Example.tsx" };
+        return { code: expoUsage, lang: "tsx", title: "Example.tsx" };
     }
   };
 
@@ -52,6 +78,7 @@ export function MyComponent() {
 
   return (
     <div className="space-y-12 pb-12">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -66,8 +93,7 @@ export function MyComponent() {
             Toast
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
-            A succinct message that is displayed temporarily and then disappears
-            automatically.
+            A succinct message that is displayed temporarily.
           </p>
         </div>
 
@@ -81,6 +107,7 @@ export function MyComponent() {
         </div>
       </motion.div>
 
+      {/* Installation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,6 +129,7 @@ export function MyComponent() {
         />
       </motion.div>
 
+      {/* Usage */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -121,10 +149,11 @@ export function MyComponent() {
         />
       </motion.div>
 
+      {/* Examples */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.4 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
         className="space-y-8"
       >
         <h2
@@ -134,58 +163,145 @@ export function MyComponent() {
           Examples
         </h2>
 
+        {/* Simple */}
         <div className="space-y-4">
           <div className="space-y-2">
             <h3
-              id="trigger"
+              id="simple"
               className="scroll-m-20 text-2xl font-semibold tracking-tight"
             >
-              Interactive Preview
+              Simple
             </h3>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Click the buttons below to see different toast variants in action.
+              A basic toast with just a title.
             </p>
           </div>
           <ComponentPreview
-            name="toast-trigger"
-            code={`show("Message", { variant: "success" })`}
+            name="toast-simple"
+            code={`<Button\n  variant="outline"\n  onClick={() => {\n    toast({\n      title: "Settings saved",\n    })\n  }}\n>\n  Show Toast\n</Button>`}
           >
-            <div className="flex flex-wrap items-center gap-4">
-              <Button
-                variant="outline"
-                onClick={() => toast("Information message", { duration: 3000 })}
-              >
-                Show Info
-              </Button>
-              <Button
-                variant="default"
-                onClick={() =>
-                  toast.success("Success! Operation completed.", {
-                    duration: 3000,
-                  })
-                }
-              >
-                Show Success
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={() =>
-                  toast.error("Error! Something went wrong.", {
-                    duration: 3000,
-                  })
-                }
-              >
-                Show Error
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              onClick={() => {
+                toast({
+                  title: "Settings saved",
+                });
+              }}
+            >
+              Show Toast
+            </Button>
+          </ComponentPreview>
+        </div>
+
+        {/* With Description */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3
+              id="with-description"
+              className="scroll-m-20 text-2xl font-semibold tracking-tight"
+            >
+              With Description
+            </h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              A toast with additional details.
+            </p>
+          </div>
+          <ComponentPreview
+            name="toast-description"
+            code={`<Button\n  variant="outline"\n  onClick={() => {\n    toast({\n      title: "Success",\n      description: "Your profile has been updated successfully.",\n    })\n  }}\n>\n  Show Toast\n</Button>`}
+          >
+            <Button
+              variant="outline"
+              onClick={() => {
+                toast({
+                  title: "Success",
+                  description: "Your profile has been updated successfully.",
+                });
+              }}
+            >
+              Show Toast
+            </Button>
+          </ComponentPreview>
+        </div>
+
+        {/* Destructive */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3
+              id="destructive"
+              className="scroll-m-20 text-2xl font-semibold tracking-tight"
+            >
+              Destructive
+            </h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              A toast used for error or destructive actions.
+            </p>
+          </div>
+          <ComponentPreview
+            name="toast-destructive"
+            code={`<Button\n  variant="destructive"\n  onClick={() => {\n    toast({\n      variant: "destructive",\n      title: "Uh oh! Something went wrong.",\n      description: "There was a problem with your request.",\n    })\n  }}\n>\n  Show Toast\n</Button>`}
+          >
+            <Button
+              className="text-white"
+              variant="destructive"
+              onClick={() => {
+                toast({
+                  variant: "destructive",
+                  title: "Uh oh! Something went wrong.",
+                  description: "There was a problem with your request.",
+                });
+              }}
+            >
+              Show Toast
+            </Button>
+          </ComponentPreview>
+        </div>
+
+        {/* With Action */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h3
+              id="with-action"
+              className="scroll-m-20 text-2xl font-semibold tracking-tight"
+            >
+              With Action
+            </h3>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              A toast with an interactive action button.
+            </p>
+          </div>
+          <ComponentPreview
+            name="toast-action"
+            code={`<Button\n  variant="outline"\n  onClick={() => {\n    toast({\n      title: "Item deleted",\n      description: "The item has been removed from your list.",\n      action: (\n        <ToastAction altText="Undo" onClick={() => console.log("Undo clicked")}>\n          Undo\n        </ToastAction>\n      ),\n    })\n  }}\n>\n  Show Toast\n</Button>`}
+          >
+            <Button
+              variant="outline"
+              onClick={() => {
+                toast({
+                  title: "Item deleted",
+                  description: "The item has been removed from your list.",
+                  action: (
+                    <ToastAction
+                      altText="Undo"
+                      onClick={() => console.log("Undo clicked")}
+                    >
+                      Undo
+                    </ToastAction>
+                  ),
+                });
+              }}
+            >
+              Show Toast
+            </Button>
           </ComponentPreview>
         </div>
       </motion.div>
 
+      {/* API Reference */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.5 }}
+        transition={{ duration: 0.4, delay: 0.4 }}
         className="space-y-4"
       >
         <h2
@@ -199,12 +315,8 @@ export function MyComponent() {
             <table className="w-full text-sm">
               <thead className="bg-muted/50">
                 <tr className="border-b border-border">
-                  <th className="text-left py-3.5 px-4 font-semibold">
-                    Method
-                  </th>
-                  <th className="text-left py-3.5 px-4 font-semibold">
-                    Arguments
-                  </th>
+                  <th className="text-left py-3.5 px-4 font-semibold">Prop</th>
+                  <th className="text-left py-3.5 px-4 font-semibold">Type</th>
                   <th className="text-left py-3.5 px-4 font-semibold">
                     Description
                   </th>
@@ -213,28 +325,41 @@ export function MyComponent() {
               <tbody>
                 <tr className="border-b border-border hover:bg-muted/30 transition-colors">
                   <td className="py-3.5 px-4 font-mono text-xs font-medium">
-                    show
+                    title
                   </td>
                   <td className="py-3.5 px-4">
                     <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      (message: string, options?: ToastOptions)
+                      string
                     </code>
                   </td>
                   <td className="py-3.5 px-4 text-muted-foreground">
-                    Triggers a new toast message
+                    The title of the toast message
+                  </td>
+                </tr>
+                <tr className="border-b border-border hover:bg-muted/30 transition-colors">
+                  <td className="py-3.5 px-4 font-mono text-xs font-medium">
+                    description
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
+                      string
+                    </code>
+                  </td>
+                  <td className="py-3.5 px-4 text-muted-foreground">
+                    Additional details for the message
                   </td>
                 </tr>
                 <tr className="hover:bg-muted/30 transition-colors">
                   <td className="py-3.5 px-4 font-mono text-xs font-medium">
-                    hideAll
+                    type
                   </td>
                   <td className="py-3.5 px-4">
                     <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      -
+                      'default' | 'success' | 'destructive'
                     </code>
                   </td>
                   <td className="py-3.5 px-4 text-muted-foreground">
-                    Dismisses all active toasts
+                    The visual variant of the toast
                   </td>
                 </tr>
               </tbody>

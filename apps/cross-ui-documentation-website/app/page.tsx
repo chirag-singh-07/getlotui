@@ -1,31 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   ArrowRight,
   Code2,
   Palette,
-  Zap,
   Check,
   Terminal,
   Sparkles,
-  Copy,
   Blocks,
-  Lock,
   Smartphone,
-  Package,
-  FileCode,
-  Star,
-  TrendingUp,
-  Shield,
-  Layers,
+  Layout,
+  Command,
+  Monitor,
+  Cpu,
+  Globe,
   Github,
   Twitter,
+  Heart,
+  Zap,
+  Download,
+  Copy,
+  Rocket,
+  ShoppingBag,
+  MessageSquare,
+  BarChart,
+  User,
+  HelpCircle,
 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { useFramework } from "@/context/framework-context";
+import { useRef } from "react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -33,932 +47,791 @@ const container = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 50,
+      damping: 20,
+    },
+  },
 };
 
 export default function LandingPage() {
   const { packageManager } = useFramework();
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll();
+
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -100]), {
+    stiffness: 100,
+    damping: 30,
+  });
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-hidden selection:bg-purple-500/20 selection:text-purple-400">
       <SiteHeader />
-      <main className="flex-1">
+      <main className="flex-1 relative">
+        {/* Ultra Premium Live Background */}
+        <div className="fixed inset-0 -z-10 h-full w-full bg-[#030014]">
+          {/* Grid */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+          {/* Animated Orbs */}
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -left-[10%] -top-[10%] h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-[120px]"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.4, 0.2],
+              x: [0, 50, 0],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute right-[0%] top-[0%] h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[130px]"
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+            className="absolute left-[20%] bottom-[20%] h-[400px] w-[400px] rounded-full bg-pink-500/10 blur-[100px]"
+          />
+        </div>
+
         {/* Hero Section */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-4 pb-8 pt-6 md:py-24 lg:py-32">
+        <section
+          ref={targetRef}
+          className="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center gap-10 py-24 md:py-32 lg:py-48"
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex max-w-[980px] flex-col items-center gap-4 text-center"
+            transition={{ duration: 0.8 }}
+            className="flex max-w-[1100px] flex-col items-center gap-8 text-center z-10"
           >
+            {/* Pill Badge */}
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium mb-2 backdrop-blur-sm"
+              transition={{ duration: 0.5, type: "spring" }}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium backdrop-blur-xl shadow-lg shadow-purple-500/10 hover:bg-white/10 transition-colors cursor-default"
             >
-              <Sparkles className="mr-2 h-3 w-3 text-primary" /> Introducing
-              CrossUI 1.0
-            </motion.div>
-            <h1 className="text-4xl font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1] text-balance">
-              Build your React Native apps <br className="hidden sm:inline" />
-              with{" "}
-              <span className="bg-linear-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient bg-size-[200%_auto]">
-                copy & paste components
+              <Sparkles className="mr-2 h-3.5 w-3.5 text-purple-400 animate-pulse" />
+              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent font-bold">
+                CrossUI 2.0
               </span>
+              <span className="ml-2 text-gray-400">is here</span>
+            </motion.div>
+
+            {/* Massive Heading */}
+            <h1 className="text-6xl font-extrabold leading-none tracking-tighter md:text-8xl lg:text-9xl text-balance bg-clip-text text-transparent bg-gradient-to-b from-white via-white/90 to-white/50 pb-4 relative z-20">
+              Build Universal Apps
             </h1>
-            <p className="max-w-[750px] text-lg text-muted-foreground sm:text-xl leading-relaxed text-balance">
-              Beautifully designed components that you can copy and paste into
-              your apps. Accessible. Customizable. Open Source. Built for Expo,
-              expanding to Flutter and Web.
+
+            <p className="max-w-[800px] text-lg text-gray-400 sm:text-xl md:text-2xl leading-relaxed text-balance">
+              The first truly framework-agnostic component library.{" "}
+              <br className="hidden md:block" />
+              Copy-paste premium components for{" "}
+              <span className="text-white font-semibold glow-text">
+                React Native
+              </span>
+              ,{" "}
+              <span className="text-white font-semibold glow-text">
+                Flutter
+              </span>
+              , and{" "}
+              <span className="text-white font-semibold glow-text">Web</span>.
             </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-5 justify-center mt-6 w-full sm:w-auto"
+            >
+              <Button
+                size="lg"
+                asChild
+                className="group h-14 px-10 text-lg bg-white text-black hover:bg-white/90 shadow-xl shadow-white/10 transition-all duration-300"
+              >
+                <Link href="/docs">
+                  Start Building
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="h-14 px-10 text-lg border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-all hover:text-white text-white"
+              >
+                <Link href="/docs/components">
+                  <Command className="mr-2 h-5 w-5" />
+                  Documentation
+                </Link>
+              </Button>
+            </motion.div>
+
+            {/* Tech Stack Ticker (Visual only) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-wrap gap-4 justify-center mt-4"
+              transition={{ delay: 0.6 }}
+              className="flex items-center gap-8 mt-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-700"
             >
-              <Button size="lg" asChild className="group">
-                <Link href="/docs">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/docs/components">Browse Components</Link>
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Code Example */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full max-w-[900px] mt-16"
-          >
-            <div className="relative">
-              <div className="absolute -inset-1 bg-linear-to-r from-primary to-accent opacity-20 blur-2xl" />
-              <div className="relative rounded-xl border border-border bg-card shadow-2xl overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-muted/40">
-                  <div className="flex gap-1.5">
-                    <div className="h-3 w-3 rounded-full bg-red-500/80" />
-                    <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                    <div className="h-3 w-3 rounded-full bg-green-500/80" />
-                  </div>
-                  <span className="text-xs text-muted-foreground ml-2 font-mono">
-                    terminal
-                  </span>
-                </div>
-                <div className="p-6">
-                  <pre className="text-sm leading-relaxed">
-                    <code className="text-foreground font-mono">
-                      <span className="text-muted-foreground">{"$ "}</span>
-                      <span className="text-primary">
-                        {packageManager === "npm"
-                          ? "npx"
-                          : packageManager === "pnpm"
-                          ? "pnpm dlx"
-                          : packageManager === "yarn"
-                          ? "yarn dlx"
-                          : "bunx"}{" "}
-                        crossui
-                      </span>{" "}
-                      init
-                      {"\n"}
-                      {"\n"}
-                      <span className="text-muted-foreground">
-                        Which framework are you using?
-                      </span>
-                      {"\n"}
-                      <span className="text-accent">❯ Expo (React Native)</span>
-                      {"\n"}
-                      {"\n"}
-                      <span className="text-muted-foreground">{"$ "}</span>
-                      <span className="text-primary">
-                        {packageManager === "npm"
-                          ? "npx"
-                          : packageManager === "pnpm"
-                          ? "pnpm dlx"
-                          : packageManager === "yarn"
-                          ? "yarn dlx"
-                          : "bunx"}{" "}
-                        crossui
-                      </span>{" "}
-                      add button
-                      {"\n"}
-                      <span className="text-green-500">✓</span>{" "}
-                      <span className="text-muted-foreground">
-                        Added button component
-                      </span>
-                    </code>
-                  </pre>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-20 border-y border-border/40 bg-muted/20">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          >
-            <motion.div variants={item} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
-                50+
-              </div>
-              <div className="text-sm text-muted-foreground">Components</div>
-            </motion.div>
-            <motion.div variants={item} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
-                10K+
-              </div>
-              <div className="text-sm text-muted-foreground">Downloads</div>
-            </motion.div>
-            <motion.div variants={item} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
-                3
-              </div>
-              <div className="text-sm text-muted-foreground">Frameworks</div>
-            </motion.div>
-            <motion.div variants={item} className="text-center">
-              <div className="text-4xl md:text-5xl font-bold bg-linear-to-br from-primary to-accent bg-clip-text text-transparent mb-2">
-                100%
-              </div>
-              <div className="text-sm text-muted-foreground">Open Source</div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Features */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                Features
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Everything you need to build beautiful React Native
-                applications. Copy. Paste. Customize.
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 lg:grid-cols-3"
-          >
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-primary/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-4">
-                <Terminal className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">CLI-First</h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                Add components to your project with a simple command. No
-                configuration required. Just like shadcn/ui.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-accent/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 mb-4">
-                <Palette className="h-6 w-6 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Customizable</h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                Components are yours. Use them as a starting point and customize
-                to your heart's content.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-primary/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-4">
-                <Code2 className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Full Control</h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                No npm packages. Copy the code directly to your project. Modify
-                as needed. You own the code.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-accent/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 mb-4">
-                <Sparkles className="h-6 w-6 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Theme-Driven</h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                Built with theming in mind. Easily customize colors, spacing,
-                typography, and more in one place.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-primary/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 mb-4">
-                <Zap className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                Developer Experience
-              </h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                Built for developers who care about their craft. Type-safe,
-                documented, and battle-tested.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden rounded-lg border border-border bg-card p-6 hover:shadow-lg hover:shadow-accent/5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10 mb-4">
-                <Copy className="h-6 w-6 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Copy & Paste</h3>
-              <p className="text-muted-foreground leading-relaxed text-pretty">
-                Browse the component library, copy the code, and paste it into
-                your project. It's that simple.
-              </p>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                Component Showcase
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Explore our extensive library of production-ready components
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
-          >
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative group overflow-hidden rounded-lg border border-border bg-card p-8 hover:shadow-lg transition-all"
-            >
-              <Blocks className="h-8 w-8 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Basic Components</h3>
-              <p className="text-muted-foreground mb-4">
-                Buttons, inputs, cards, badges and more
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary">
-                  Button
-                </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary">
-                  Input
-                </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary">
-                  Card
-                </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-primary/10 text-primary">
-                  Badge
+              <div className="flex items-center gap-2">
+                <Smartphone className="h-5 w-5 text-blue-400" />
+                <span className="text-sm font-mono tracking-widest uppercase">
+                  React Native
                 </span>
               </div>
-            </motion.div>
-            <motion.div
-              variants={item}
-              whileHover={{ scale: 1.02 }}
-              className="relative group overflow-hidden rounded-lg border border-border bg-card p-8 hover:shadow-lg transition-all"
-            >
-              <Layers className="h-8 w-8 text-accent mb-4" />
-              <h3 className="text-xl font-semibold mb-2">
-                Advanced Components
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Modals, dropdowns, tabs, and navigation
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent">
-                  Modal
+              <div className="h-1 w-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <Cpu className="h-5 w-5 text-sky-400" />
+                <span className="text-sm font-mono tracking-widest uppercase">
+                  Flutter
                 </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent">
-                  Dropdown
-                </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent">
-                  Tabs
-                </span>
-                <span className="text-xs px-2 py-1 rounded-md bg-accent/10 text-accent">
-                  Nav
+              </div>
+              <div className="h-1 w-1 rounded-full bg-white/20" />
+              <div className="flex items-center gap-2">
+                <Globe className="h-5 w-5 text-yellow-400" />
+                <span className="text-sm font-mono tracking-widest uppercase">
+                  Web
                 </span>
               </div>
             </motion.div>
           </motion.div>
         </section>
 
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40 bg-muted/10">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                Multi-Framework Support
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Build with your favorite framework, share components across
-                platforms
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
-          >
-            <motion.div
-              variants={item}
-              className="text-center p-8 rounded-lg border border-border bg-card"
-            >
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
-                <Smartphone className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">React Native</h3>
-              <p className="text-muted-foreground mb-4">
-                Full support with Expo
-              </p>
-              <div className="inline-flex px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-500">
-                Available Now
-              </div>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="text-center p-8 rounded-lg border border-border bg-card"
-            >
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 mb-4">
-                <Package className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Flutter</h3>
-              <p className="text-muted-foreground mb-4">Dart implementation</p>
-              <div className="inline-flex px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-500">
-                Coming Soon
-              </div>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="text-center p-8 rounded-lg border border-border bg-card"
-            >
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
-                <FileCode className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Web</h3>
-              <p className="text-muted-foreground mb-4">React for web apps</p>
-              <div className="inline-flex px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-500">
-                Coming Soon
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-          >
-            <motion.div variants={item} className="text-center">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Type Safe</h3>
-              <p className="text-sm text-muted-foreground">
-                Built with TypeScript for maximum type safety and intellisense
-                support
-              </p>
-            </motion.div>
-            <motion.div variants={item} className="text-center">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 mb-4">
-                <Lock className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Accessible</h3>
-              <p className="text-sm text-muted-foreground">
-                WCAG compliant components with proper ARIA labels and keyboard
-                navigation
-              </p>
-            </motion.div>
-            <motion.div variants={item} className="text-center">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-4">
-                <TrendingUp className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Production Ready</h3>
-              <p className="text-sm text-muted-foreground">
-                Battle-tested in production apps, optimized for performance and
-                reliability
-              </p>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40 bg-muted/10">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                Loved by developers
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Join thousands of developers building with CrossUI
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
-          >
-            <motion.div
-              variants={item}
-              className="p-6 rounded-lg border border-border bg-card"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4 leading-relaxed">
-                "CrossUI has been a game changer for our mobile development. The
-                components are beautiful and easy to customize."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-linear-to-br from-primary to-accent" />
-                <div>
-                  <div className="font-semibold text-sm">Sarah Chen</div>
-                  <div className="text-xs text-muted-foreground">
-                    Lead Developer at TechCo
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="p-6 rounded-lg border border-border bg-card"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4 leading-relaxed">
-                "The copy-paste approach is genius. We have full control over
-                our components and can ship faster than ever."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-linear-to-br from-accent to-primary" />
-                <div>
-                  <div className="font-semibold text-sm">Michael Rodriguez</div>
-                  <div className="text-xs text-muted-foreground">
-                    Founder at StartupXYZ
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="p-6 rounded-lg border border-border bg-card"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-primary text-primary"
-                    />
-                  ))}
-                </div>
-              </div>
-              <p className="text-muted-foreground mb-4 leading-relaxed">
-                "Finally, a component library that doesn't lock you in. The code
-                quality is exceptional and well documented."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-linear-to-br from-primary to-accent" />
-                <div>
-                  <div className="font-semibold text-sm">Emma Thompson</div>
-                  <div className="text-xs text-muted-foreground">
-                    Senior Engineer at Enterprise Inc
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                Frequently Asked Questions
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Everything you need to know about CrossUI
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="mx-auto max-w-3xl space-y-4"
-          >
-            <motion.div
-              variants={item}
-              className="rounded-lg border border-border bg-card p-6 hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold mb-2">
-                Why not just use a component library?
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The idea behind CrossUI is to give you ownership and control
-                over the code, allowing you to decide how the components are
-                built and styled. You can start with sensible defaults and then
-                customize the components to your needs.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="rounded-lg border border-border bg-card p-6 hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold mb-2">
-                Do I need to install anything?
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                You only need to install the CLI once. After that, you can add
-                components to your project with a single command. The components
-                are copied directly to your project, so you have full control.
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="rounded-lg border border-border bg-card p-6 hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold mb-2">
-                Which frameworks are supported?
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Currently, CrossUI supports Expo (React Native). We're working
-                on expanding to Flutter and Web in the near future. Stay tuned!
-              </p>
-            </motion.div>
-            <motion.div
-              variants={item}
-              className="rounded-lg border border-border bg-card p-6 hover:shadow-md transition-shadow"
-            >
-              <h3 className="text-lg font-semibold mb-2">
-                Can I use this in my project?
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Yes! The code is yours. Use it in your project, modify it, and
-                ship it. Free and open source. MIT licensed.
-              </p>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Comparison Section */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40">
-          <div className="mx-auto flex max-w-232 flex-col items-center space-y-4 text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-                How it compares
-              </h2>
-              <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty mt-4">
-                Understanding the difference between CrossUI and traditional
-                component libraries
-              </p>
-            </motion.div>
-          </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mx-auto max-w-5xl"
-          >
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="rounded-lg border border-border bg-card p-8">
-                <h3 className="text-xl font-semibold mb-4">
-                  Traditional Libraries
-                </h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-destructive mt-1">✕</span>
-                    <span className="leading-relaxed">
-                      Locked into specific design decisions
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-destructive mt-1">✕</span>
-                    <span className="leading-relaxed">
-                      Heavy bundle size with unused components
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-destructive mt-1">✕</span>
-                    <span className="leading-relaxed">
-                      Difficult to customize beyond provided props
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-destructive mt-1">✕</span>
-                    <span className="leading-relaxed">
-                      Breaking changes on updates
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div className="rounded-lg border-2 border-primary/50 bg-primary/5 p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
-                  RECOMMENDED
-                </div>
-                <h3 className="text-xl font-semibold mb-4">CrossUI</h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">
-                      Full ownership of the code
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">
-                      Only include what you need
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">
-                      Customize anything without limits
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">
-                      No breaking changes, you control updates
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32 border-t border-border/40">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mx-auto flex max-w-232 flex-col items-center justify-center gap-4 text-center"
-          >
-            <h2 className="text-3xl font-bold leading-[1.1] sm:text-3xl md:text-5xl text-balance">
-              Ready to get started?
-            </h2>
-            <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7 text-pretty">
-              Start building beautiful React Native apps today.
+        {/* Trusted By Section (New) */}
+        <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm py-12">
+          <div className="container mx-auto px-4">
+            <p className="text-center text-sm font-medium text-muted-foreground mb-8 uppercase tracking-widest">
+              Trusted by developers at
             </p>
-            <div className="flex flex-wrap gap-4 justify-center mt-4">
-              <Button size="lg" asChild className="group">
-                <Link href="/docs">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="https://github.com" target="_blank">
-                  <Github className="mr-2 h-4 w-4" />
-                  View on GitHub
-                </Link>
-              </Button>
+            <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
+              {/* Placeholders for logos - simplified text for now */}
+              {["Acme Inc", "Vercel", "Expo", "Google", "Meta"].map(
+                (name, i) => (
+                  <div
+                    key={i}
+                    className="text-xl font-bold font-mono tracking-tighter text-white"
+                  >
+                    {name}
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Terminal / Code Preview Section */}
+        <section className="container mx-auto max-w-7xl px-4 py-24 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="rounded-3xl border border-white/10 bg-[#0a0a0a] shadow-2xl overflow-hidden"
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/[0.02]">
+              <div className="flex gap-2">
+                <div className="h-3 w-3 rounded-full bg-[#FF5F56] opacity-80" />
+                <div className="h-3 w-3 rounded-full bg-[#FFBD2E] opacity-80" />
+                <div className="h-3 w-3 rounded-full bg-[#27C93F] opacity-80" />
+              </div>
+              <div className="text-xs font-mono text-muted-foreground">
+                crossui-cli — 80x24
+              </div>
+              <div className="w-10"></div>
+            </div>
+            <div className="p-8 md:p-12 overflow-x-auto bg-[#050505]">
+              <pre className="font-mono text-sm md:text-base leading-relaxed">
+                <code className="text-gray-300">
+                  <div className="mb-6 opacity-50">
+                    <span># Select your target framework</span>
+                  </div>
+                  <span className="text-purple-400 font-bold">?</span>{" "}
+                  <span className="text-white font-bold">
+                    Which framework are you using?
+                  </span>
+                  {"\n"}
+                  <div className="mt-2 text-cyan-400">
+                    ❯ Expo (React Native)
+                    <br />
+                    &nbsp;&nbsp;Flutter
+                    <br />
+                    &nbsp;&nbsp;Next.js (Web)
+                  </div>
+                  {"\n"}
+                  <div className="mb-2 mt-6 opacity-50">
+                    <span># Add components instantly</span>
+                  </div>
+                  <span className="text-green-400 font-bold">$</span>{" "}
+                  <span className="text-blue-400">
+                    {packageManager === "npm" ? "npx" : "bunx"} crossui
+                  </span>{" "}
+                  add authentication-screen
+                  {"\n"}
+                  <div className="py-4">
+                    <span className="text-green-500">✔</span> Validating project
+                    structure
+                    <br />
+                    <span className="text-green-500">✔</span> Installing
+                    dependencies...{" "}
+                    <span className="text-gray-500">(0.5s)</span>
+                    <br />
+                    <span className="text-green-500">✔</span> Created{" "}
+                    <span className="underline decoration-gray-700">
+                      components/auth/LoginScreen.tsx
+                    </span>
+                    <br />
+                    <span className="text-green-500">✔</span> Created{" "}
+                    <span className="underline decoration-gray-700">
+                      components/auth/RegisterScreen.tsx
+                    </span>
+                  </div>
+                  <span className="inline-block px-2 py-1 bg-green-500/10 text-green-400 rounded text-xs mt-2">
+                    ✨ Components added successfully
+                  </span>
+                </code>
+              </pre>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 1: Workflow Steps */}
+        <section className="container mx-auto max-w-7xl px-4 py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              How it Works
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Three simple steps to build your dream app.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent border-t border-dashed border-white/20" />
+
+            {[
+              {
+                icon: Download,
+                title: "Install CLI",
+                desc: "Run `npx crossui init` to set up your project.",
+              },
+              {
+                icon: Copy,
+                title: "Pick Components",
+                desc: "Browse our library and copy the code you need.",
+              },
+              {
+                icon: Rocket,
+                title: "Ship It",
+                desc: "Customize to fit your brand and deploy.",
+              },
+            ].map((step, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -5 }}
+                className="relative z-10 flex flex-col items-center text-center p-6 rounded-3xl bg-[#0a0a0a] border border-white/10 hover:border-purple-500/50 transition-colors"
+              >
+                <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center mb-6 border border-white/10 shadow-lg shadow-purple-500/10">
+                  <step.icon className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
+                <p className="text-muted-foreground">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Features - Bento Grid Style */}
+        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 relative">
+          <div className="mx-auto flex max-w-2xl flex-col items-center space-y-4 text-center mb-20">
+            <h2 className="text-3xl font-bold leading-[1.1] sm:text-4xl md:text-5xl lg:text-6xl text-balance tracking-tight">
+              Reinventing{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                UI Development
+              </span>
+            </h2>
+            <p className="max-w-[85%] mx-auto leading-normal text-muted-foreground sm:text-lg sm:leading-8 text-pretty mt-6">
+              Stop fighting with dependencies. Start owning your UI.
+            </p>
+          </div>
+
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            {/* Feature 1 - CLI First (Large) */}
+            <motion.div
+              variants={item}
+              className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
+            >
+              <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Terminal className="w-80 h-80 text-white rotate-12" />
+              </div>
+              <div className="relative z-10">
+                <div className="h-16 w-16 rounded-2xl bg-white/10 flex items-center justify-center mb-8 border border-white/10 shadow-inner">
+                  <Terminal className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold mb-4 text-white">
+                  CLI-First Workflow
+                </h3>
+                <p className="text-gray-400 leading-relaxed text-lg max-w-md">
+                  Scaffold specific components directly into your codebase. No
+                  massive node_modules, no breaking changes.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Feature 2 - Customizable */}
+            <motion.div
+              variants={item}
+              className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
+            >
+              <div className="relative z-10 h-full flex flex-col">
+                <div className="h-16 w-16 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-8 border border-pink-500/20 shadow-inner">
+                  <Palette className="h-8 w-8 text-pink-400" />
+                </div>
+                <h3 className="text-3xl font-bold mb-4 text-white">Theming</h3>
+                <p className="text-gray-400 leading-relaxed flex-1">
+                  Global design tokens for colors, typography, and spacing.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Feature 3 - Ownership */}
+            <motion.div
+              variants={item}
+              className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
+            >
+              <div className="relative z-10 h-full flex flex-col">
+                <div className="h-16 w-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-8 border border-blue-500/20 shadow-inner">
+                  <Code2 className="h-8 w-8 text-blue-400" />
+                </div>
+                <h3 className="text-3xl font-bold mb-4 text-white">
+                  100% Code
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  You own every line. Modify logic, add features, delete what
+                  you don't need.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Feature 4 - Perf */}
+            <motion.div
+              variants={item}
+              className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
+            >
+              <div className="absolute bottom-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Zap className="w-80 h-80 text-yellow-400 -rotate-12" />
+              </div>
+              <div className="relative z-10">
+                <div className="h-16 w-16 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-8 border border-yellow-500/20 shadow-inner">
+                  <Zap className="h-8 w-8 text-yellow-400" />
+                </div>
+                <h3 className="text-3xl font-bold mb-4 text-white">
+                  Zero Runtime Overhead
+                </h3>
+                <p className="text-gray-400 leading-relaxed text-lg max-w-md">
+                  Since components are compiled as part of your app, there is no
+                  extra library weight. Just pure, native performance.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* SECTION 2: Templates / Starter Kits */}
+        <section className="container mx-auto max-w-7xl px-4 py-24 border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                Kickstart with Templates
+              </h2>
+              <p className="text-xl text-muted-foreground w-1/2">
+                Don't start from scratch. Use our production-ready starter kits.
+              </p>
+            </div>
+            <Button
+              variant="ghost"
+              className="text-purple-400 hover:text-purple-300"
+            >
+              View All Templates <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "E-Commerce",
+                icon: ShoppingBag,
+                color: "bg-orange-500",
+                desc: "Full featured store with cart, checkout, and product details.",
+              },
+              {
+                title: "Social App",
+                icon: MessageSquare,
+                color: "bg-blue-500",
+                desc: "Feed, profile, messaging, and notifications system.",
+              },
+              {
+                title: "SaaS Dashboard",
+                icon: BarChart,
+                color: "bg-green-500",
+                desc: "Analytics, user management, and subscription billing.",
+              },
+            ].map((template, i) => (
+              <div key={i} className="group cursor-pointer">
+                <div
+                  className={`h-64 rounded-3xl ${template.color}/10 border border-white/5 mb-6 relative overflow-hidden`}
+                >
+                  <div
+                    className={`absolute inset-0 ${template.color}/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <template.icon
+                      className={`h-16 w-16 ${template.color.replace(
+                        "bg-",
+                        "text-"
+                      )} opacity-50 group-hover:scale-110 transition-transform duration-500`}
+                    />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mb-2">{template.title}</h3>
+                <p className="text-muted-foreground">{template.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 3: Detailed Comparison */}
+        <section className="container mx-auto max-w-7xl px-4 py-24 border-t border-white/5">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">
+              Why CrossUI?
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              See how we stack up against the rest.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-[#0a0a0a] overflow-hidden">
+            <div className="grid grid-cols-3 p-6 border-b border-white/10 bg-white/5 text-sm font-bold uppercase tracking-wider">
+              <div>Feature</div>
+              <div className="text-center text-muted-foreground">
+                Traditional UI Libs
+              </div>
+              <div className="text-center text-purple-400">CrossUI</div>
+            </div>
+            {[
+              {
+                feature: "Bundle Size",
+                bad: "Heavy (All components)",
+                good: "Zero (Only what you use)",
+              },
+              {
+                feature: "Styling Control",
+                bad: "Limited API",
+                good: "Full Code Access",
+              },
+              {
+                feature: "Frameworks",
+                bad: "React Only",
+                good: "React Native, Flutter, Web",
+              },
+              {
+                feature: "Theming",
+                bad: "Complex Overrides",
+                good: "Native Tokens",
+              },
+              {
+                feature: "Dependencies",
+                bad: "Many (Risk of breaking)",
+                good: "None (It's just code)",
+              },
+            ].map((row, i) => (
+              <div
+                key={i}
+                className="grid grid-cols-3 p-6 border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors"
+              >
+                <div className="font-medium">{row.feature}</div>
+                <div className="text-center text-muted-foreground">
+                  {row.bad}
+                </div>
+                <div className="text-center font-bold text-white flex items-center justify-center gap-2">
+                  <Check className="h-4 w-4 text-green-500" /> {row.good}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Framework Support - Write Once Ship Everywhere */}
+        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 border-t border-white/5 relative">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6">
+              Universal Support
+            </h2>
+            <p className="text-xl text-gray-400">
+              One design system. Every platform. No compromises.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "React Native",
+                icon: Smartphone,
+                color: "text-blue-400",
+                bg: "bg-blue-500/10",
+                desc: "Native iOS and Android apps with Expo.",
+                status: "Fully Supported",
+              },
+              {
+                name: "Flutter",
+                icon: Cpu,
+                color: "text-sky-400",
+                bg: "bg-sky-500/10",
+                desc: "High-performance compiled native apps.",
+                status: "Fully Supported",
+              },
+              {
+                name: "Web",
+                icon: Globe,
+                color: "text-yellow-400",
+                bg: "bg-yellow-500/10",
+                desc: "Responsive web apps with Next.js/React.",
+                status: "Fully Supported",
+              },
+            ].map((fw, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className="rounded-3xl border border-white/10 bg-white/5 p-8 relative overflow-hidden group"
+              >
+                <div
+                  className={`absolute top-0 right-0 w-32 h-32 ${fw.bg} blur-3xl rounded-full opacity-20 group-hover:opacity-40 transition-opacity`}
+                />
+
+                <div
+                  className={`h-14 w-14 rounded-2xl ${fw.bg} flex items-center justify-center mb-6 border border-white/5`}
+                >
+                  <fw.icon className={`h-7 w-7 ${fw.color}`} />
+                </div>
+
+                <h3 className="text-2xl font-bold mb-2">{fw.name}</h3>
+                <p className="text-gray-400 mb-6">{fw.desc}</p>
+
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium uppercase tracking-wide">
+                  <Check className="w-3 h-3 mr-1.5" />
+                  {fw.status}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 4: Testimonials */}
+        <section className="container mx-auto max-w-7xl px-4 py-24 border-t border-white/5">
+          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center">
+            Loved by the Community
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Alex Chen",
+                role: "Senior FE Dev",
+                text: "Finally, a library that doesn't feel like I'm fighting the framework. The generated code is clean and idiomatic.",
+              },
+              {
+                name: "Sarah Jones",
+                role: "CTO @ Startup",
+                text: "We migrated our entire Expo app to CrossUI in a weekend. The performance gains were immediate.",
+              },
+              {
+                name: "Michael Pratt",
+                role: "Indie Hacker",
+                text: "The Flutter templates are a lifesaver. I shipped my MVP in 3 days thanks to this.",
+              },
+            ].map((t, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors"
+              >
+                <div className="flex gap-1 mb-4">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Sparkles
+                      key={s}
+                      className="h-4 w-4 text-yellow-500 fill-yellow-500"
+                    />
+                  ))}
+                </div>
+                <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+                  "{t.text}"
+                </p>
+                <div className="flex items-center gap-4">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500" />
+                  <div>
+                    <div className="font-bold">{t.name}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {t.role}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 5: FAQ */}
+        <section className="container mx-auto max-w-3xl px-4 py-24 border-t border-white/5">
+          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">
+            Frequently Asked Questions
+          </h2>
+          <Accordion type="single" collapsible className="w-full">
+            {[
+              {
+                q: "Is this really free?",
+                a: "Yes, CrossUI is 100% open source and free to use for personal and commercial projects.",
+              },
+              {
+                q: "How do I update components?",
+                a: "The components are yours once you add them. You can update them manually or run the CLI update command to diff changes.",
+              },
+              {
+                q: "Can I use with Tailwind?",
+                a: "The Web and React Native (via NativeWind) versions are built with Tailwind in mind.",
+              },
+              {
+                q: "Is Flutter support stable?",
+                a: "Flutter support is currently in beta but fully functional for production use.",
+              },
+            ].map((faq, i) => (
+              <AccordionItem
+                key={i}
+                value={`item-${i}`}
+                className="border-white/10"
+              >
+                <AccordionTrigger className="text-lg hover:no-underline hover:text-purple-400">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-400 text-base">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+
+        {/* Community / Ecosystem Section */}
+        <section className="py-24 bg-[#0a0a0a]">
+          <div className="container mx-auto px-4 text-center">
+            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm font-medium mb-8">
+              <Heart className="mr-2 h-4 w-4 text-red-500 fill-red-500" />
+              <span className="text-gray-300">Open Source Community</span>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-bold mb-12">
+              Join the Ecosystem
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <Link
+                href="https://github.com/chirag-singh-07/crossui"
+                target="_blank"
+                className="group rounded-2xl border border-white/10 bg-white/[0.02] p-8 hover:bg-white/[0.05] transition-all flex items-center gap-6 text-left"
+              >
+                <div className="h-16 w-16 bg-white/10 rounded-full flex items-center justify-center shrink-0">
+                  <Github className="h-8 w-8" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-1 group-hover:text-purple-400 transition-colors">
+                    GitHub
+                  </h3>
+                  <p className="text-gray-400">
+                    Star the repo, report issues, and contribute to the
+                    codebase.
+                  </p>
+                </div>
+              </Link>
+
+              <Link
+                href="#"
+                className="group rounded-2xl border border-white/10 bg-white/[0.02] p-8 hover:bg-white/[0.05] transition-all flex items-center gap-6 text-left"
+              >
+                <div className="h-16 w-16 bg-blue-500/10 rounded-full flex items-center justify-center shrink-0">
+                  <Twitter className="h-8 w-8 text-blue-400" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-1 group-hover:text-blue-400 transition-colors">
+                    Twitter / X
+                  </h3>
+                  <p className="text-gray-400">
+                    Follow for updates, tips, and showcases from the community.
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 pb-32">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-[3rem] bg-gradient-to-br from-purple-600 to-blue-600 px-6 py-20 text-center overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-black/10" />
+            <div className="absolute -top-24 -left-24 w-96 h-96 bg-white/20 blur-[100px] rounded-full pointer-events-none" />
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-black/20 blur-[100px] rounded-full pointer-events-none" />
+
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+                Ready to ship?
+              </h2>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  asChild
+                  className="h-16 px-12 text-xl font-bold rounded-full bg-white text-purple-600 hover:bg-gray-100 shadow-2xl"
+                >
+                  <Link href="/docs">Get Started Now</Link>
+                </Button>
+              </div>
             </div>
           </motion.div>
         </section>
       </main>
-
-      <footer className="border-t border-border/40 bg-muted/20">
-        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-            <div className="col-span-2 md:col-span-1">
-              <Link href="/" className="flex items-center space-x-2 mb-4">
-                <span className="font-bold text-xl bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
-                  CrossUI
-                </span>
-              </Link>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                A cross-language, theme-driven design system. Built by
-                developers, for developers.
-              </p>
-              <div className="flex items-center gap-3">
-                <Button variant="ghost" size="icon" asChild>
-                  <Link
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Github className="h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <Link
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <Twitter className="h-5 w-5" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Documentation</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link
-                    href="/docs"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Introduction
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/docs/installation"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Installation
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/docs/cli"
-                    className="hover:text-primary transition-colors"
-                  >
-                    CLI Reference
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/docs/theming"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Theming
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Components</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link
-                    href="/docs/components"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Overview
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/docs/components/button"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Button
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/docs/components/input"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Input
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Community</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link
-                    href="https://github.com"
-                    className="hover:text-primary transition-colors"
-                  >
-                    GitHub
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="https://twitter.com"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Twitter
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-primary transition-colors"
-                  >
-                    Discord
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">
-              © 2025 CrossUI. Open source under MIT License.
-            </p>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <Link
-                href="#"
-                className="hover:text-foreground transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-foreground transition-colors"
-              >
-                Terms of Service
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

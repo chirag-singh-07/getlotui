@@ -40,12 +40,63 @@ export async function initCommand() {
       packageManager,
       componentsDir:
         adapter === "flutter" ? "lib/components/ui" : "components/ui",
+      themeDir: adapter === "flutter" ? "lib/theme" : "theme",
     };
+
     await fs.writeFile(
       configPath,
       JSON.stringify(defaultConfig, null, 2),
       "utf8"
     );
+
+    // Create theme directory
+    const fullThemeDir = path.join(cwd, defaultConfig.themeDir);
+    try {
+      await fs.mkdir(fullThemeDir, { recursive: true });
+      const isFlutter = adapter === "flutter";
+      const themeFileName = isFlutter ? "config.dart" : "config.ts";
+      const themeFilePath = path.join(fullThemeDir, themeFileName);
+
+      const themeContent = isFlutter
+        ? `import 'package:flutter/material.dart';
+
+class CrossUITheme {
+  static const colors = {
+    'primary': Color(0xFF6366F1),
+    'background': Color(0xFFFFFFFF),
+    'foreground': Color(0xFF0F172A),
+  };
+  
+  static const radius = {
+    'sm': 4.0,
+    'md': 8.0,
+    'lg': 12.0,
+  };
+}`
+        : `export const theme = {
+  colors: {
+    primary: '#6366f1',
+    background: '#ffffff',
+    foreground: '#0f172a',
+  },
+  radius: {
+    sm: 4,
+    md: 8,
+    lg: 12,
+  },
+  spacing: {
+    unit: 8,
+  }
+};`;
+
+      await fs.writeFile(themeFilePath, themeContent, "utf8");
+      console.log(
+        chalk.green(`Created ${defaultConfig.themeDir}/${themeFileName}`)
+      );
+    } catch (err) {
+      console.warn(chalk.yellow("Could not create theme directory:"), err);
+    }
+
     console.log(
       chalk.green(
         `Created crossui.config.json with ${adapter} (${packageManager}) defaults.`

@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import '../theme/tokens.dart';
+import '../theme/crossui_theme.dart';
 
-enum CrossUITextVariant { h1, h2, h3, h4, h5, h6, body, subtitle, caption, muted, code }
+enum CrossUITextVariant {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  body,
+  subtitle,
+  caption,
+  muted,
+  code
+}
 
 class CrossUIText extends StatelessWidget {
   final String text;
@@ -23,7 +36,8 @@ class CrossUIText extends StatelessWidget {
   Widget build(BuildContext context) {
     double fontSize;
     FontWeight defaultFontWeight = FontWeight.normal;
-    Color defaultColor = color ?? CrossUITokens.dark;
+    // Default to theme text color
+    Color defaultColor = color ?? context.theme.text;
     bool isCode = false;
 
     switch (variant) {
@@ -53,22 +67,21 @@ class CrossUIText extends StatelessWidget {
         break;
       case CrossUITextVariant.subtitle:
         fontSize = CrossUITokens.fontSizeLg;
-        defaultColor = color ?? Colors.grey[700]!;
+        defaultColor = color ?? context.theme.textMuted;
         break;
       case CrossUITextVariant.caption:
         fontSize = CrossUITokens.fontSizeXs;
-        defaultColor = color ?? Colors.grey[600]!;
+        defaultColor = color ?? context.theme.textMuted;
         break;
       case CrossUITextVariant.muted:
         fontSize = CrossUITokens.fontSizeSm;
-        defaultColor = color ?? Colors.grey[500]!;
+        defaultColor = color ?? context.theme.textMuted;
         break;
       case CrossUITextVariant.code:
         fontSize = CrossUITokens.fontSizeSm;
         isCode = true;
         break;
       case CrossUITextVariant.body:
-      default:
         fontSize = CrossUITokens.fontSizeBase;
         break;
     }

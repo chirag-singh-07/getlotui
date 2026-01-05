@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "default": { "background": "primary", "text": "onPrimary" },
+    "secondary": { "background": "secondaryLight", "text": "onSecondaryLight" },
+    "outline": { "background": "transparent", "text": "primary", "border": "primary", "borderWidth": 1 },
+    "destructive": { "background": "danger", "text": "onDanger" },
+    "success": { "background": "successLight", "text": "onSuccessLight" },
+    "warning": { "background": "warningLight", "text": "onWarningLight" }
+  },
+  "sizes": {
+    "sm": { "paddingVertical": "xxs", "paddingHorizontal": "xs", "fontSize": 10 },
+    "md": { "paddingVertical": "xs", "paddingHorizontal": "s", "fontSize": 12 }
+  },
+  "defaults": {
+    "variant": "default",
+    "size": "md"
+  },
+  "radius": "round"
+}

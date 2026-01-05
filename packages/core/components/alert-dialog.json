@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "default": {
+      "background": "surface",
+      "overlay": "rgba(0, 0, 0, 0.5)",
+      "text": "onSurface",
+      "border": "border"
+    },
+    "destructive": {
+      "background": "surface",
+      "overlay": "rgba(0, 0, 0, 0.5)",
+      "text": "onSurface",
+      "border": "border",
+      "actionBackground": "danger",
+      "actionText": "onDanger"
+    }
+  },
+  "defaults": {
+    "variant": "default"
+  },
+  "spacing": {
+    "padding": "l",
+    "gap": "m",
+    "buttonGap": "s"
+  },
+  "radius": "large",
+  "animation": {
+    "duration": 200,
+    "easing": "easeInOut"
+  }
+}

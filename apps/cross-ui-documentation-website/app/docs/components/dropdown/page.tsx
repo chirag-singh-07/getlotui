@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,47 +8,73 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, Settings, Trash, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { ComponentPreview } from "@/components/component-preview";
 import { InstallationCommand } from "@/components/installation-command";
+import { useFramework } from "@/context/framework-context";
 import { motion } from "framer-motion";
-import { toast } from "sonner";
 
 export default function DropdownPage() {
-  const usageCode = `import { 
-  Dropdown, 
-  DropdownTrigger, 
-  DropdownContent, 
-  DropdownItem 
-} from '@crossui/expo'
+  const { framework } = useFramework();
 
-export default function MyComponent() {
+  const expoUsage = `import { Dropdown } from '@crossui/expo'
+
+export default function Demo() {
   return (
-    <Dropdown>
-      <DropdownTrigger>
-        <Button title="Open Menu" />
-      </DropdownTrigger>
-      <DropdownContent>
-        <DropdownItem 
-          icon="person-outline" 
-          onSelect={() => console.log('Profile')}
-        >
-          Profile
-        </DropdownItem>
-        <DropdownItem 
-          icon="trash-outline" 
-          destructive 
-          onSelect={() => console.log('Delete')}
-        >
-          Delete
-        </DropdownItem>
-      </DropdownContent>
-    </Dropdown>
+    <Dropdown
+      trigger={<Button>Open Menu</Button>}
+      items={[
+        { label: "Profile", value: "profile" },
+        { label: "Settings", value: "settings" },
+        { label: "Logout", value: "logout" },
+      ]}
+      onSelect={(val) => console.log(val)}
+    />
   )
 }`;
 
+  const flutterUsage = `CrossUIDropdown(
+  items: [
+    CrossUIDropdownItem(label: 'Profile', value: 'profile'),
+    CrossUIDropdownItem(label: 'Settings', value: 'settings'),
+    CrossUIDropdownItem(label: 'Logout', value: 'logout'),
+  ],
+  onSelect: (value) => print(value),
+  child: CrossUIButton(
+    child: Text('Open Menu'),
+  ),
+)`;
+
+  const webUsage = `<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Open Menu</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+    <DropdownMenuItem>Logout</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`;
+
+  const getUsageContent = () => {
+    switch (framework) {
+      case "flutter":
+        return { code: flutterUsage, lang: "dart", title: "example.dart" };
+      case "web":
+        return { code: webUsage, lang: "tsx", title: "example.tsx" };
+      case "expo":
+      default:
+        return { code: expoUsage, lang: "tsx", title: "Example.tsx" };
+    }
+  };
+
+  const usage = getUsageContent();
+
   return (
     <div className="space-y-12 pb-12">
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -64,8 +89,8 @@ export default function MyComponent() {
             Dropdown
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
-            Displays a list of actions or options to a user, triggered by a
-            button or other interaction.
+            Displays a menu to the user—such as a set of actions or
+            functions—triggered by a button.
           </p>
         </div>
 
@@ -73,12 +98,13 @@ export default function MyComponent() {
           <span className="text-sm font-medium text-foreground">
             Framework:
           </span>
-          <span className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-xs font-mono font-semibold text-primary ring-1 ring-inset ring-primary/20">
-            Expo
+          <span className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1 text-xs font-mono font-semibold text-primary ring-1 ring-inset ring-primary/20 capitalize">
+            {framework}
           </span>
         </div>
       </motion.div>
 
+      {/* Installation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -91,9 +117,16 @@ export default function MyComponent() {
         >
           Installation
         </h2>
-        <InstallationCommand code="npx crossui add dropdown" />
+        <InstallationCommand
+          code={
+            framework === "flutter"
+              ? "crossui add dropdown"
+              : "npx crossui add dropdown"
+          }
+        />
       </motion.div>
 
+      {/* Usage */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -106,9 +139,14 @@ export default function MyComponent() {
         >
           Usage
         </h2>
-        <InstallationCommand code={usageCode} title="Example" />
+        <InstallationCommand
+          code={usage.code}
+          title={usage.title}
+          language={usage.lang}
+        />
       </motion.div>
 
+      {/* Examples */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -122,50 +160,40 @@ export default function MyComponent() {
           Examples
         </h2>
 
+        {/* Basic */}
         <div className="space-y-4">
           <div className="space-y-2">
             <h3
-              id="standard"
+              id="basic"
               className="scroll-m-20 text-2xl font-semibold tracking-tight"
             >
-              Standard Menu
+              Basic
             </h3>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Composable dropdown with icons and destructive actions.
+              A standard dropdown menu.
             </p>
           </div>
-          <ComponentPreview name="dropdown-standard" code={usageCode}>
+          <ComponentPreview
+            name="dropdown-basic"
+            code={`<DropdownMenu>\n  <DropdownMenuTrigger asChild>\n    <Button variant="outline">Open Menu</Button>\n  </DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuLabel>My Account</DropdownMenuLabel>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem>Profile</DropdownMenuItem>\n    <DropdownMenuItem>Settings</DropdownMenuItem>\n    <DropdownMenuItem>Logout</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>`}
+          >
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  Open Menu <ChevronDown className="h-4 w-4 opacity-50" />
-                </Button>
+                <Button variant="outline">Open Menu</Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
+              <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => toast("Profile selected")}>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => toast("Settings selected")}>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-destructive focus:text-destructive"
-                  onClick={() => toast.error("Deleting...")}
-                >
-                  <Trash className="mr-2 h-4 w-4" />
-                  <span>Delete</span>
-                </DropdownMenuItem>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </ComponentPreview>
         </div>
       </motion.div>
 
+      {/* API Reference */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -186,9 +214,6 @@ export default function MyComponent() {
                   <th className="text-left py-3.5 px-4 font-semibold">Prop</th>
                   <th className="text-left py-3.5 px-4 font-semibold">Type</th>
                   <th className="text-left py-3.5 px-4 font-semibold">
-                    Default
-                  </th>
-                  <th className="text-left py-3.5 px-4 font-semibold">
                     Description
                   </th>
                 </tr>
@@ -196,56 +221,41 @@ export default function MyComponent() {
               <tbody>
                 <tr className="border-b border-border hover:bg-muted/30 transition-colors">
                   <td className="py-3.5 px-4 font-mono text-xs font-medium">
-                    icon
+                    items
                   </td>
                   <td className="py-3.5 px-4">
                     <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      string (Ionicons)
-                    </code>
-                  </td>
-                  <td className="py-3.5 px-4">
-                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      -
+                      DropdownItem[]
                     </code>
                   </td>
                   <td className="py-3.5 px-4 text-muted-foreground">
-                    The icon to display on the left
+                    Array of items to display in the menu
                   </td>
                 </tr>
                 <tr className="border-b border-border hover:bg-muted/30 transition-colors">
-                  <td className="py-3.5 px-4 font-mono text-xs font-medium">
-                    destructive
-                  </td>
-                  <td className="py-3.5 px-4">
-                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      boolean
-                    </code>
-                  </td>
-                  <td className="py-3.5 px-4">
-                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      false
-                    </code>
-                  </td>
-                  <td className="py-3.5 px-4 text-muted-foreground">
-                    Applies destructive styling
-                  </td>
-                </tr>
-                <tr className="hover:bg-muted/30 transition-colors">
                   <td className="py-3.5 px-4 font-mono text-xs font-medium">
                     onSelect
                   </td>
                   <td className="py-3.5 px-4">
                     <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      {"() => void"}
-                    </code>
-                  </td>
-                  <td className="py-3.5 px-4">
-                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
-                      -
+                      (value: string) =&gt; void
                     </code>
                   </td>
                   <td className="py-3.5 px-4 text-muted-foreground">
-                    Callback when item is selected
+                    Callback when an item is selected
+                  </td>
+                </tr>
+                <tr className="hover:bg-muted/30 transition-colors">
+                  <td className="py-3.5 px-4 font-mono text-xs font-medium">
+                    trigger
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <code className="text-xs font-mono bg-muted px-2 py-1 rounded">
+                      ReactNode | Widget
+                    </code>
+                  </td>
+                  <td className="py-3.5 px-4 text-muted-foreground">
+                    The element that triggers the menu
                   </td>
                 </tr>
               </tbody>

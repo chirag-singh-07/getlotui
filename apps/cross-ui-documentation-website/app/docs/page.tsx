@@ -1,228 +1,558 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { ArrowRight, Code2, Sparkles, Zap, Package } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ArrowRight,
+  Code2,
+  Sparkles,
+  Zap,
+  Package,
+  Layers,
+  Monitor,
+  Smartphone,
+  CheckCircle2,
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
 
 export default function DocsPage() {
   return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">Introduction</h1>
-        <p className="text-xl text-muted-foreground leading-relaxed text-balance">
-          Build beautiful, accessible React Native apps with copy & paste components. Inspired by shadcn/ui, designed
-          for cross-platform development.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap gap-3">
-        <Button size="lg" asChild>
-          <Link href="/docs/installation">
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
-        <Button size="lg" variant="outline" asChild>
-          <Link href="/docs/components">Browse Components</Link>
-        </Button>
-      </div>
-
-      {/* What is CrossUI */}
-      <div className="space-y-4 pt-6 border-t border-border">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">What is CrossUI?</h2>
-        <p className="text-muted-foreground leading-relaxed">
-          CrossUI is a collection of re-usable components that you can copy and paste into your apps. It's not a
-          component library. It's a collection of components.
-        </p>
-        <p className="text-muted-foreground leading-relaxed">
-          Built with Expo (React Native) as the first target, with plans to expand to Flutter and Web. Every component
-          is accessible, customizable, and built with best practices in mind.
-        </p>
-        <Card className="p-6 bg-primary/5 border-primary/20">
-          <p className="text-sm leading-relaxed">
-            <strong>The idea:</strong> Give you ownership and control over the code. Start with sensible defaults, then
-            customize to your needs. Pick the components you need. Copy the code into your project and adapt it to your
-            requirements.
-          </p>
-        </Card>
-      </div>
-
-      {/* Philosophy */}
-      <div className="space-y-4">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">Philosophy</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                <Code2 className="h-5 w-5 text-primary" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">Own Your Code</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Components live in your project, not in node_modules. Modify, extend, or completely rewrite them. It's
-                  your code.
-                </p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                <Sparkles className="h-5 w-5 text-accent" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">Theme-Driven</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Every component respects your design tokens and theme configuration. Change your theme once, update
-                  everywhere.
-                </p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                <Zap className="h-5 w-5 text-primary" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">CLI-First</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Add components with simple commands. Browse, select, and add to your project in seconds. Just like
-                  shadcn/ui.
-                </p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
-                <Package className="h-5 w-5 text-accent" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold">Cross-Platform Ready</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Starting with Expo, expanding to Flutter and Web. One design system, multiple platforms, consistent
-                  UIs.
-                </p>
-              </div>
-            </div>
-          </Card>
+    <motion.div
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="space-y-16 pb-16"
+    >
+      {/* Hero Section */}
+      <motion.div variants={item} className="space-y-6">
+        <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary ring-1 ring-inset ring-primary/20">
+          <Sparkles className="mr-2 h-3.5 w-3.5" />
+          Pre-release v0.5.0
         </div>
-      </div>
-
-      {/* Why CrossUI */}
-      <div className="space-y-4">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">Why CrossUI?</h2>
-        <p className="text-muted-foreground leading-relaxed">
-          Building beautiful, consistent UIs across platforms is challenging. CrossUI makes it easier by providing:
-        </p>
-        <ul className="space-y-2 text-muted-foreground ml-6">
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-1">•</span>
-            <span>
-              <strong>Pre-built, accessible components</strong> - Keyboard navigation, screen readers, and ARIA
-              attributes out of the box
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-1">•</span>
-            <span>
-              <strong>Consistent theming and styling</strong> - Design tokens and theme configuration for unified
-              designs
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-1">•</span>
-            <span>
-              <strong>TypeScript support</strong> - Full type safety and IntelliSense for better developer experience
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-1">•</span>
-            <span>
-              <strong>Easy customization</strong> - Modify components without fighting against a library's API
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-primary mt-1">•</span>
-            <span>
-              <strong>No version conflicts</strong> - Code lives in your project, no breaking changes from updates
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      {/* FAQ */}
-      <div className="space-y-4">
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">FAQ</h2>
         <div className="space-y-4">
-          <Card className="p-6">
-            <h3 className="font-semibold mb-2">Why not just use a component library?</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The idea behind CrossUI is to give you ownership and control over the code, allowing you to decide how the
-              components are built and styled. We start with sensible defaults, but you have full control to customize
-              them.
-            </p>
-          </Card>
-          <Card className="p-6">
-            <h3 className="font-semibold mb-2">Do I need to install anything?</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              You only need the CLI (via npx, no global install needed). Components are copied directly to your project,
-              so there's no package to maintain or update.
-            </p>
-          </Card>
-          <Card className="p-6">
-            <h3 className="font-semibold mb-2">Which frameworks are supported?</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Currently, CrossUI supports Expo (React Native). We're working on expanding to Flutter and Web in the
-              future. The design system principles remain consistent across all platforms.
-            </p>
-          </Card>
-          <Card className="p-6">
-            <h3 className="font-semibold mb-2">Can I use this in production?</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Yes! The code is yours. Use it in personal projects, client work, or commercial applications. MIT licensed
-              and free forever.
-            </p>
-          </Card>
+          <h1 className="scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-6xl text-balance bg-linear-to-br from-foreground to-foreground/70 bg-clip-text text-transparent">
+            Introduction
+          </h1>
+          <p className="text-xl text-muted-foreground leading-relaxed max-w-[800px] text-balance">
+            Build beautiful, accessible, and high-performance applications with
+            copy-and-paste components. Inspired by shadcn/ui, architected for
+            the modern multi-platform era.
+          </p>
         </div>
-      </div>
 
-      {/* Get Started */}
-      <div className="space-y-4 pt-6 border-t border-border">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">Ready to get started?</h2>
-        <p className="text-muted-foreground">Choose your path to start building with CrossUI:</p>
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card className="p-6 hover:shadow-md transition-shadow">
-            <h3 className="font-semibold mb-2">Installation</h3>
-            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Set up CrossUI in your Expo project. Takes less than 2 minutes.
-            </p>
-            <Button variant="outline" size="sm" asChild className="w-full bg-transparent">
-              <Link href="/docs/installation">Get Started</Link>
-            </Button>
-          </Card>
-          <Card className="p-6 hover:shadow-md transition-shadow">
-            <h3 className="font-semibold mb-2">Components</h3>
-            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Browse the component library and see live examples of each component.
-            </p>
-            <Button variant="outline" size="sm" asChild className="w-full bg-transparent">
-              <Link href="/docs/components">View Components</Link>
-            </Button>
-          </Card>
-          <Card className="p-6 hover:shadow-md transition-shadow">
-            <h3 className="font-semibold mb-2">Theming</h3>
-            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-              Learn how to customize the theme to match your brand identity.
-            </p>
-            <Button variant="outline" size="sm" asChild className="w-full bg-transparent">
-              <Link href="/docs/theming">Theming Guide</Link>
-            </Button>
+        <div className="flex flex-wrap gap-4 pt-4">
+          <Button size="lg" className="h-12 px-8 text-base shadow-lg" asChild>
+            <Link href="/docs/quick-start">
+              Get Started
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-12 px-8 text-base border-2"
+            asChild
+          >
+            <Link href="/docs/components">Browse Components</Link>
+          </Button>
+        </div>
+      </motion.div>
+
+      {/* What is CrossUI Section */}
+      <motion.div variants={item} className="space-y-6 pt-8">
+        <div className="space-y-2">
+          <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+            What is CrossUI?
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            CrossUI is{" "}
+            <span className="text-foreground font-medium italic">not</span> a
+            traditional component library. It is a collection of re-usable
+            components that you own, designed to work seamlessly across multiple
+            frameworks.
+          </p>
+        </div>
+        <div className="grid gap-6">
+          <p className="text-muted-foreground leading-relaxed">
+            The philosophy is simple: we provide the high-quality, unstyled (or
+            minimally styled) components with powerful logic, and you copy the
+            code into your project. Use our CLI to add them instantly, then
+            customize every line to fit your brand.
+          </p>
+          <Card className="p-8 bg-linear-to-br from-primary/3 to-primary/1 border-primary/20 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <Layers className="h-24 w-24" />
+            </div>
+            <div className="relative z-10 space-y-4">
+              <p className="text-base leading-relaxed text-foreground/90">
+                <strong>The Core Principle:</strong> Radical Ownership. Instead
+                of fighting a package in{" "}
+                <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">
+                  node_modules
+                </code>
+                , you have the source code in your{" "}
+                <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono">
+                  ui/
+                </code>{" "}
+                folder. Customize the animations, the accessibility descriptors,
+                or the fundamental layout without limits.
+              </p>
+            </div>
           </Card>
         </div>
-      </div>
-    </div>
-  )
+      </motion.div>
+
+      {/* Philosophy/Features Grid */}
+      <motion.div variants={item} className="space-y-8 pt-8">
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+          Philosophy
+        </h2>
+        <div className="grid gap-6 md:grid-cols-2">
+          {[
+            {
+              title: "Own Your Code",
+              desc: "Components live in your project. Modify, extend, or completely rewrite them. No more tracking upstream breaking changes.",
+              icon: Code2,
+              color: "bg-blue-500/10 text-blue-500",
+            },
+            {
+              title: "Theme-Driven",
+              desc: "A unified design token system helps you toggle between light/dark modes and custom brand palettes across all platforms.",
+              icon: Sparkles,
+              color: "bg-purple-500/10 text-purple-500",
+            },
+            {
+              title: "CLI-First",
+              desc: "Add logic-heavy components with a single command. The CLI handles dependencies and scaffolding automatically.",
+              icon: Zap,
+              color: "bg-amber-500/10 text-amber-500",
+            },
+            {
+              title: "Multi-Framework",
+              desc: "Write once, render anywhere. First-class support for Expo (React Native), with growing support for Flutter and Next.js.",
+              icon: Package,
+              color: "bg-emerald-500/10 text-emerald-500",
+            },
+          ].map((feature, i) => (
+            <Card
+              key={i}
+              className="p-8 hover:bg-muted/30 transition-all duration-300 border-border/50 group"
+            >
+              <div className="flex items-start gap-5">
+                <div
+                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${feature.color} group-hover:scale-110 transition-transform`}
+                >
+                  <feature.icon className="h-6 w-6" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold tracking-tight">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">
+                    {feature.desc}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Multi-Platform Strategy */}
+      <motion.div variants={item} className="space-y-8 pt-8">
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+          Multi-Platform Support
+        </h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            {
+              name: "Expo / Native",
+              status: "Stable",
+              desc: "Built with React Native and Reanimated for world-class performance.",
+              icon: Smartphone,
+            },
+            {
+              name: "Flutter",
+              status: "Beta",
+              desc: "Native Dart implementation for pixel-perfect cross-platform consistency.",
+              icon: Layers,
+            },
+            {
+              name: "Web / Next.js",
+              status: "Ready",
+              desc: "Optimized for SSR and standard web accessibility features.",
+              icon: Monitor,
+            },
+          ].map((platform, i) => (
+            <div
+              key={i}
+              className="p-6 rounded-2xl border border-border/50 bg-card hover:border-primary/50 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <platform.icon className="h-6 w-6 text-primary" />
+                <span
+                  className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full ${
+                    platform.status === "Stable"
+                      ? "bg-emerald-500/10 text-emerald-500"
+                      : platform.status === "Beta"
+                      ? "bg-amber-500/10 text-amber-500"
+                      : "bg-blue-500/10 text-blue-500"
+                  }`}
+                >
+                  {platform.status}
+                </span>
+              </div>
+              <h3 className="font-bold mb-1">{platform.name}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {platform.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Workflow Section */}
+      <motion.div variants={item} className="space-y-8 pt-8">
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+          How it Works
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              step: "01",
+              title: "Initialize",
+              desc: "Run the init command to set up your design tokens (colors, spacing, typography) in a local config file.",
+            },
+            {
+              step: "02",
+              title: "Add Components",
+              desc: "Use the CLI to select components. The source code is injected directly into your /ui folder.",
+            },
+            {
+              step: "03",
+              title: "Make it Yours",
+              desc: "Since the code is local, you can change the styling logic, add custom props, or swap animation libraries.",
+            },
+          ].map((phase, i) => (
+            <div key={i} className="relative space-y-3">
+              <span className="text-6xl font-black text-muted/30 absolute -top-4 -left-2 select-none">
+                {phase.step}
+              </span>
+              <h3 className="text-xl font-bold relative z-10">{phase.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {phase.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Architecture Section */}
+      <motion.div variants={item} className="space-y-12 pt-8">
+        <div className="space-y-4">
+          <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+            The Architecture
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
+            CrossUI is architected around the concept of{" "}
+            <strong>Headless Multi-Platform Logic</strong>. We encapsulate
+            complex behaviors into a universal core, allowing for native-speed
+            rendering on every target.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-5 gap-12 items-center">
+          {/* Left Side: Detailed Explanations */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="space-y-4">
+              {[
+                {
+                  title: "Headless Core",
+                  desc: "Shared state machines and accessibility logic that remain constant across Web, iOS, and Android.",
+                  icon: Code2,
+                  color: "text-blue-500",
+                },
+                {
+                  title: "Native Adapters",
+                  desc: "Platform-specific bridges that translate core logic into native primitives like View, Div, or Widget.",
+                  icon: Smartphone,
+                  color: "text-emerald-500",
+                },
+                {
+                  title: "Design Tokens",
+                  desc: "A centralized JSON-driven system for your brand's colors, spacing, and motion curves.",
+                  icon: Sparkles,
+                  color: "text-amber-500",
+                },
+              ].map((layer, i) => (
+                <div key={i} className="flex gap-4 group">
+                  <div
+                    className={`mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted border border-border group-hover:border-primary/50 transition-colors ${layer.color}`}
+                  >
+                    <layer.icon className="h-5 w-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-foreground">{layer.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {layer.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Side: 3D Layer Stack Visualization */}
+          <div className="lg:col-span-3 flex justify-center py-12 lg:py-0">
+            <div className="relative w-full max-w-[400px] perspective-[1000px] rotate-y-[-20deg] rotate-x-[15deg]">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="relative space-y-[-40px]"
+              >
+                {/* Layer 3: Presentation */}
+                <div className="relative z-30 transform translate-z-[60px] hover:translate-y-[-10px] transition-transform cursor-help">
+                  <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border-2 border-primary shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
+                        Presentation Layer
+                      </span>
+                      <Monitor className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="h-10 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-center text-[10px] font-mono italic">
+                        Tailwind CSS
+                      </div>
+                      <div className="h-10 rounded-lg bg-primary/5 border border-primary/20 flex items-center justify-center text-[10px] font-mono italic">
+                        NativeView
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Layer 2: Universal Logic */}
+                <div className="relative z-20 transform translate-z-[30px] hover:translate-y-[-10px] transition-transform cursor-help">
+                  <div className="p-6 rounded-2xl bg-primary text-primary-foreground shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                        CrossUI Core
+                      </span>
+                      <Layers className="h-4 w-4 opacity-80" />
+                    </div>
+                    <div className="py-2 text-center text-sm font-bold tracking-tight">
+                      Headless Logic & State Machines
+                    </div>
+                  </div>
+                </div>
+
+                {/* Layer 1: Infrastructure */}
+                <div className="relative z-10 transform hover:translate-y-[-10px] transition-transform cursor-help">
+                  <div className="p-6 rounded-2xl bg-zinc-100 dark:bg-zinc-800 border border-border shadow-xl">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                        Tokens Layer
+                      </span>
+                      <Zap className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <div className="flex gap-2 justify-center">
+                      <div className="px-3 py-1 rounded bg-background border text-[9px] font-mono">
+                        Colors.json
+                      </div>
+                      <div className="px-3 py-1 rounded bg-background border text-[9px] font-mono">
+                        Spacing.ts
+                      </div>
+                      <div className="px-3 py-1 rounded bg-background border text-[9px] font-mono">
+                        Motion.kt
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Decorative Labels for Diagram */}
+              <div className="absolute -right-8 top-1/2 -translate-y-1/2 space-y-24 pointer-events-none hidden md:block">
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-[1px] bg-border" />
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-tighter">
+                    View
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-[1px] bg-primary/50" />
+                  <span className="text-[10px] font-mono text-primary uppercase tracking-tighter">
+                    Logic
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-12 h-[1px] bg-border" />
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-tighter">
+                    Data
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Accessibility Section */}
+      <motion.div variants={item} className="space-y-8 pt-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/50 pb-2">
+          <h2 className="scroll-m-20 text-3xl font-bold tracking-tight">
+            Accessibility
+          </h2>
+          <div className="flex items-center gap-2">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="text-xs font-bold uppercase tracking-wider opacity-60">
+              WCAG 2.1 Compliant
+            </span>
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Keyboard Navigation",
+              desc: "Full focus management and shortcut support for all interactive elements.",
+            },
+            {
+              title: "Screen Readers",
+              desc: "Correct ARIA roles and labels are baked into the component templates.",
+            },
+            {
+              title: "Focus Rings",
+              desc: "Highly visible focus indicators that look great on both touch and mouse.",
+            },
+          ].map((a11y, i) => (
+            <div key={i} className="space-y-2">
+              <h4 className="font-bold">{a11y.title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {a11y.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* FAQ Section */}
+      <motion.div variants={item} className="space-y-8 pt-16">
+        <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
+        <div className="grid gap-8 border-t border-border/50 pt-8">
+          {[
+            {
+              q: "Why not just use an NPM package?",
+              a: "Packages make it hard to customize. If you want to change a specific animation or a sub-component behavior, you're stuck. CrossUI gives you the source code so there are no black boxes.",
+            },
+            {
+              q: "Does this support Tailwind CSS?",
+              a: "Yes. For Web and React Native (via NativeWind), Tailwind is the primary way we handle styling tokens.",
+            },
+            {
+              q: "Can I use this in an existing project?",
+              a: "Absolutely. You can initialize CrossUI in any folder. It won't interfere with your existing components.",
+            },
+          ].map((faq, i) => (
+            <div key={i} className="space-y-2">
+              <h3 className="font-bold text-lg">{faq.q}</h3>
+              <p className="text-muted-foreground leading-relaxed">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Why Choose Section */}
+      <motion.div variants={item} className="space-y-6 pt-8">
+        <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
+          Why Choose CrossUI?
+        </h2>
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
+          {[
+            "Accessible by Default (WCAG & ARIA)",
+            "Zero Design System Bloat",
+            "Performance First Architecture",
+            "Seamless Dark Mode Integration",
+            "TypeScript First Developer Experience",
+            "Full Logic Ownership",
+          ].map((text, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
+              <span className="text-muted-foreground font-medium">{text}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Quick Start Path */}
+      <motion.div
+        variants={item}
+        className="space-y-8 pt-16 border-t border-border/50"
+      >
+        <div className="space-y-2">
+          <h2 className="text-3xl font-extrabold tracking-tight">
+            Ready to integrate?
+          </h2>
+          <p className="text-muted-foreground text-lg italic">
+            The journey to a unified cross-platform UI starts here.
+          </p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-3 text-center">
+          {[
+            {
+              title: "Installation",
+              desc: "Set up the design tokens and base components in your project.",
+              href: "/docs/installation",
+              label: "Read Guide",
+            },
+            {
+              title: "Components",
+              desc: "Browse through 40+ production-ready components and previews.",
+              href: "/docs/components",
+              label: "Browse Library",
+            },
+            {
+              title: "Theming",
+              desc: "Customize the color palette and typography to match your brand.",
+              href: "/docs/theming",
+              label: "Customize Now",
+            },
+          ].map((box, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center p-8 bg-muted/20 border border-border/50 rounded-3xl hover:bg-muted/40 transition-colors"
+            >
+              <h3 className="text-xl font-bold mb-2">{box.title}</h3>
+              <p className="text-sm text-muted-foreground mb-6 h-12 leading-relaxed">
+                {box.desc}
+              </p>
+              <Button variant="link" className="group p-0" asChild>
+                <Link
+                  href={box.href}
+                  className="text-primary font-bold inline-flex items-center"
+                >
+                  {box.label}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 }
