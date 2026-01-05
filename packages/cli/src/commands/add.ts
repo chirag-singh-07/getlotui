@@ -20,27 +20,29 @@ export async function addCommand(component: string) {
     }
 
     const adapter = config.adapter || "expo";
+    const extension = adapter === "flutter" ? "dart" : "tsx";
     const componentsDir = path.resolve(
       cwd,
-      config.componentsDir || "components/ui"
+      config.componentsDir ||
+        (adapter === "flutter" ? "lib/components/ui" : "components/ui")
     );
+
+    const componentName =
+      component.charAt(0).toUpperCase() + component.slice(1);
     const templatePath = path.resolve(
       __dirname,
       "..",
       "templates",
       adapter,
-      `${component.charAt(0).toUpperCase() + component.slice(1)}.tsx`
+      `${componentName}.${extension}`
     );
 
     await copyComponent(
       templatePath,
-      path.join(
-        componentsDir,
-        `${component.charAt(0).toUpperCase() + component.slice(1)}.tsx`
-      )
+      path.join(componentsDir, `${componentName}.${extension}`)
     );
     console.log(
-      chalk.green(`Component ${component} added to ${componentsDir}`)
+      chalk.green(`Component ${componentName} added to ${componentsDir}`)
     );
   } catch (err) {
     console.error(chalk.red("Failed to add component:"), err);

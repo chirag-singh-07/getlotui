@@ -1,6 +1,7 @@
 {
   "small": 6,
-  "medium": 10,
+  "medium": 8,
   "large": 16,
+  "xl": 24,
   "round": 9999
 }

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "success": { "background": "success", "text": "onSuccess", "icon": "checkmark-circle" },
+    "error": { "background": "danger", "text": "onDanger", "icon": "alert-circle" },
+    "info": { "background": "dark", "text": "onDark", "icon": "information-circle" }
+  },
+  "position": {
+    "bottom": 40,
+    "top": 40
+  },
+  "animation": {
+    "duration": 300,
+    "autoDismiss": 4000
+  },
+  "layout": {
+    "radius": "medium",
+    "padding": "m",
+    "maxWidth": 340
+  }
+}

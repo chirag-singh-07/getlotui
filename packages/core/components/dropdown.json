@@ -1,0 +1,21 @@
+{
+  "layout": {
+    "radius": "medium",
+    "padding": "s",
+    "minWidth": 200,
+    "maxWidth": 300
+  },
+  "colors": {
+    "background": "white",
+    "border": "border",
+    "itemText": "inputText",
+    "itemHover": "light",
+    "separator": "border"
+  },
+  "animation": {
+    "duration": 200
+  },
+  "spacing": {
+    "itemPadding": "m"
+  }
+}

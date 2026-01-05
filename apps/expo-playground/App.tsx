@@ -1,13 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Text,
   View,
   ScrollView,
   SafeAreaView,
   Platform,
   KeyboardAvoidingView,
-  Alert,
+  Text as RNText,
 } from "react-native";
 import {
   Button,
@@ -17,11 +16,26 @@ import {
   Radio,
   Switch,
   ThemeProvider,
+  Text as CrossText,
+  Alert as CrossAlert,
+  ToastProvider,
+  useToast,
+  Dialog,
+  Dropdown,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownItem,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
 } from "@crossui/expo";
-import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
-export default function App() {
+function MainContent() {
+  const { show } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [search, setSearch] = useState("");
@@ -29,170 +43,327 @@ export default function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [radioValue, setRadioValue] = useState(1);
   const [switchValue, setSwitchValue] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   return (
-    <ThemeProvider>
-      <SafeAreaView style={styles.safeArea}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
+    <SafeAreaView style={styles.safeArea}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            showsVerticalScrollIndicator={false}
-          >
-            <Text style={styles.headerTitle}>UI Playground</Text>
-            <Text style={styles.headerSubtitle}>
-              Universal JSON Design System
-            </Text>
+          <RNText style={styles.headerTitle}>UI Playground</RNText>
+          <RNText style={styles.headerSubtitle}>
+            Universal JSON Design System
+          </RNText>
 
-            {/* OTP Input Section */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>🔐 OTP Input</Text>
-              <Text style={styles.sectionDesc}>
-                Animated one-time password input with auto-focus.
-              </Text>
+          {/* New Components Section */}
+          <CrossText variant="h3" style={{ marginBottom: 16 }}>
+            🆕 New Components
+          </CrossText>
 
-              <View style={{ marginBottom: 20 }}>
-                <Text style={styles.inputLabel}>Enter 6-digit code</Text>
-                <OTPInput
-                  length={6}
-                  value={otp}
-                  onChange={setOtp}
-                  onComplete={(code) => Alert.alert("OTP Complete", code)}
-                  size="md"
+          {/* Typography Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <CardHeader>
+              <CardTitle>📊 Typography</CardTitle>
+              <CardDescription>
+                Standard font variants and styles
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CrossText variant="h1">Heading 1</CrossText>
+              <CrossText variant="h2">Heading 2</CrossText>
+              <CrossText variant="h3">Heading 3</CrossText>
+              <CrossText variant="h4">Heading 4</CrossText>
+              <CrossText variant="h5">Heading 5</CrossText>
+              <CrossText variant="h6">Heading 6</CrossText>
+              <CrossText variant="body">Body text with default theme</CrossText>
+              <CrossText variant="subtitle">Subtitle text</CrossText>
+              <CrossText variant="caption">Caption text</CrossText>
+              <CrossText variant="muted">Muted text</CrossText>
+              <CrossText variant="code">const crossUI = true;</CrossText>
+            </CardContent>
+          </Card>
+
+          {/* Alerts Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <CardHeader>
+              <CardTitle>🔔 Alerts</CardTitle>
+              <CardDescription>
+                Inline feedback for various states
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <View style={{ gap: 12 }}>
+                <CrossAlert
+                  title="Informational Alert"
+                  variant="info"
+                  description="This is a neutral message."
+                />
+                <CrossAlert
+                  title="Success Alert"
+                  variant="success"
+                  description="Operation completed successfully."
+                />
+                <CrossAlert
+                  title="Warning Alert"
+                  variant="warning"
+                  description="Please be careful with this action."
+                />
+                <CrossAlert
+                  title="Error Alert"
+                  variant="error"
+                  description="Something went wrong!"
                 />
               </View>
+            </CardContent>
+          </Card>
 
-              <View style={{ marginBottom: 20 }}>
-                <Text style={styles.inputLabel}>Secure PIN (4 digits)</Text>
-                <OTPInput
-                  length={4}
-                  value=""
-                  onChange={(pin) => console.log(pin)}
-                  secureTextEntry
-                  size="lg"
-                  variant="filled"
-                />
-              </View>
-            </View>
-
-            {/* Enhanced Inputs Section */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>📝 Enhanced Inputs</Text>
-              <Text style={styles.sectionDesc}>
-                Inputs with icons, animations, and helper text.
-              </Text>
-
-              <Input
-                label="Email Address"
-                type="email"
-                placeholder="john@example.com"
-                value={email}
-                onChangeText={setEmail}
-                leftIcon="mail-outline"
-                helperText="We'll never share your email"
-              />
-
-              <Input
-                label="Password"
-                type="password"
-                placeholder="Enter securely"
-                value={password}
-                onChangeText={setPassword}
-                leftIcon="lock-closed-outline"
-              />
-
-              <Input
-                label="Search"
-                placeholder="Search anything..."
-                value={search}
-                onChangeText={setSearch}
-                leftIcon="search-outline"
-                rightIcon="close-circle"
-                onRightIconPress={() => setSearch("")}
-                helperText="Press X to clear"
-              />
-
-              <Input
-                label="Phone Number"
-                type="phone"
-                placeholder="+1 (555) 000-0000"
-                leftIcon="call-outline"
-              />
-
-              <Input
-                label="Location"
-                placeholder="Enter your address"
-                leftIcon="location-outline"
-                rightIcon="navigate-outline"
-                onRightIconPress={() => Alert.alert("Get Location")}
-              />
-
-              <Input
-                label="Bio"
-                placeholder="Tell us about yourself..."
-                multiline
-                size="lg"
-                helperText="Maximum 500 characters"
-              />
-
-              <Input
-                label="Error State"
-                placeholder="Invalid input"
-                error="This field is required"
-                leftIcon="alert-circle-outline"
-              />
-            </View>
-
-            {/* Selecting Section */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>✅ Selection Controls</Text>
-
-              <View style={styles.controlRow}>
-                <Checkbox checked={isChecked} onChange={setIsChecked} />
-                <Text style={styles.controlLabel}>
-                  Accept Terms & Conditions
-                </Text>
-              </View>
-
-              <View style={styles.controlRow}>
-                <Switch value={switchValue} onChange={setSwitchValue} />
-                <Text style={styles.controlLabel}>Enable Notifications</Text>
-              </View>
-
-              <Text style={[styles.sectionDesc, { marginTop: 16 }]}>
-                Radio Group
-              </Text>
-              <View style={styles.controlRow}>
-                <Radio
-                  selected={radioValue === 1}
-                  onPress={() => setRadioValue(1)}
-                />
-                <Text style={styles.controlLabel}>Option 1</Text>
-                <View style={{ width: 16 }} />
-                <Radio
-                  selected={radioValue === 2}
-                  onPress={() => setRadioValue(2)}
-                />
-                <Text style={styles.controlLabel}>Option 2</Text>
-              </View>
-            </View>
-
-            {/* Existing Buttons Section (Kept for completeness) */}
-            <View style={styles.card}>
-              <Text style={styles.sectionTitle}>✨ Buttons (Existing)</Text>
+          {/* Toasts Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <CardHeader>
+              <CardTitle>🍞 Toasts</CardTitle>
+              <CardDescription>
+                Brief, ephemeral snackbar notifications
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <View style={styles.row}>
-                <Button title="Login" variant="primary" />
-                <Button title="Sign Up" variant="secondary" />
+                <Button
+                  title="Info Toast"
+                  onPress={() => show("Information message")}
+                />
+                <Button
+                  title="Success"
+                  variant="success"
+                  onPress={() => show("Success!", { variant: "success" })}
+                />
+                <Button
+                  title="Error"
+                  variant="danger"
+                  onPress={() => show("Error!", { variant: "error" })}
+                />
               </View>
+            </CardContent>
+          </Card>
+
+          {/* Dialog Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <CardHeader>
+              <CardTitle>🪟 Dialog (Modal)</CardTitle>
+              <CardDescription>
+                Overlay for focused user interaction
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                title="Open Dialog"
+                onPress={() => setDialogVisible(true)}
+              />
+              <Dialog
+                visible={dialogVisible}
+                onClose={() => setDialogVisible(false)}
+                title="Confirm Custom Action"
+                description="This is a CrossUI Dialog component with custom children."
+              >
+                <View
+                  style={{
+                    padding: 10,
+                    backgroundColor: "#f9fafb",
+                    borderRadius: 8,
+                    marginTop: 8,
+                  }}
+                >
+                  <CrossText variant="body">
+                    Custom content inside dialog!
+                  </CrossText>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    marginTop: 16,
+                    gap: 10,
+                  }}
+                >
+                  <Button
+                    title="Cancel"
+                    variant="outlinePrimary"
+                    onPress={() => setDialogVisible(false)}
+                  />
+                  <Button
+                    title="Confirm"
+                    onPress={() => {
+                      setDialogVisible(false);
+                      show("Action confirmed!", { variant: "success" });
+                    }}
+                  />
+                </View>
+              </Dialog>
+            </CardContent>
+          </Card>
+
+          {/* Dropdown Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <CardHeader>
+              <CardTitle>🔽 Dropdown Menu</CardTitle>
+              <CardDescription>Contextual lists of actions</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button title="Open Menu" />
+                </DropdownTrigger>
+                <DropdownContent>
+                  <DropdownItem
+                    icon="person-outline"
+                    onSelect={() => show("Profile selected")}
+                  >
+                    Profile
+                  </DropdownItem>
+                  <DropdownItem
+                    icon="settings-outline"
+                    onSelect={() => show("Settings selected")}
+                  >
+                    Settings
+                  </DropdownItem>
+                  <DropdownItem
+                    icon="trash-outline"
+                    destructive
+                    onSelect={() =>
+                      show("Delete selected", { variant: "error" })
+                    }
+                  >
+                    Delete
+                  </DropdownItem>
+                </DropdownContent>
+              </Dropdown>
+            </CardContent>
+          </Card>
+
+          <CrossText variant="h3" style={{ marginBottom: 16, marginTop: 16 }}>
+            🛠️ Original Components
+          </CrossText>
+
+          {/* OTP Input Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <RNText style={styles.sectionTitle}>🔐 OTP Input</RNText>
+            <RNText style={styles.sectionDesc}>
+              Animated one-time password input with auto-focus.
+            </RNText>
+
+            <View style={{ marginBottom: 20 }}>
+              <RNText style={styles.inputLabel}>Enter 6-digit code</RNText>
+              <OTPInput
+                length={6}
+                value={otp}
+                onChange={setOtp}
+                onComplete={(code) =>
+                  show(`OTP Complete: ${code}`, { variant: "success" })
+                }
+                size="md"
+              />
+            </View>
+          </Card>
+
+          {/* Enhanced Inputs Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <RNText style={styles.sectionTitle}>📝 Enhanced Inputs</RNText>
+            <RNText style={styles.sectionDesc}>
+              Inputs with icons, animations, and helper text.
+            </RNText>
+
+            <Input
+              label="Email Address"
+              type="email"
+              placeholder="john@example.com"
+              value={email}
+              onChangeText={setEmail}
+              leftIcon="mail-outline"
+              helperText="We'll never share your email"
+            />
+
+            <Input
+              label="Password"
+              type="password"
+              placeholder="Enter securely"
+              value={password}
+              onChangeText={setPassword}
+              leftIcon="lock-closed-outline"
+            />
+
+            <Input
+              label="Search"
+              placeholder="Search anything..."
+              value={search}
+              onChangeText={setSearch}
+              leftIcon="search-outline"
+              rightIcon="close-circle"
+              onRightIconPress={() => setSearch("")}
+              helperText="Press X to clear"
+            />
+          </Card>
+
+          {/* Selecting Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <RNText style={styles.sectionTitle}>✅ Selection Controls</RNText>
+
+            <View style={styles.controlRow}>
+              <Checkbox checked={isChecked} onChange={setIsChecked} />
+              <RNText style={styles.controlLabel}>
+                Accept Terms & Conditions
+              </RNText>
             </View>
 
-            <View style={{ height: 40 }} />
-          </ScrollView>
-        </KeyboardAvoidingView>
-      </SafeAreaView>
+            <View style={styles.controlRow}>
+              <Switch value={switchValue} onChange={setSwitchValue} />
+              <RNText style={styles.controlLabel}>Enable Notifications</RNText>
+            </View>
+
+            <RNText style={[styles.sectionDesc, { marginTop: 16 }]}>
+              Radio Group
+            </RNText>
+            <View style={styles.controlRow}>
+              <Radio
+                selected={radioValue === 1}
+                onPress={() => setRadioValue(1)}
+              />
+              <RNText style={styles.controlLabel}>Option 1</RNText>
+              <View style={{ width: 16 }} />
+              <Radio
+                selected={radioValue === 2}
+                onPress={() => setRadioValue(2)}
+              />
+              <RNText style={styles.controlLabel}>Option 2</RNText>
+            </View>
+          </Card>
+
+          {/* Existing Buttons Section */}
+          <Card style={{ marginBottom: 24 }}>
+            <RNText style={styles.sectionTitle}>✨ Buttons (Existing)</RNText>
+            <View style={styles.row}>
+              <Button title="Login" variant="primary" />
+              <Button title="Sign Up" variant="secondary" />
+            </View>
+          </Card>
+
+          <View style={{ height: 60 }} />
+        </ScrollView>
+      </KeyboardAvoidingView>
       <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <ToastProvider>
+        <MainContent />
+      </ToastProvider>
     </ThemeProvider>
   );
 }
@@ -218,19 +389,6 @@ const styles = StyleSheet.create({
     color: "#6B7280",
     marginBottom: 32,
     fontWeight: "500",
-  },
-  card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 24,
-    padding: 24,
-    marginBottom: 24,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: "#F3F4F6",
   },
   sectionTitle: {
     fontSize: 20,

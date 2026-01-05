@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "info": {
+      "background": "infoLight",
+      "border": "info",
+      "text": "onInfoLight",
+      "icon": "information-circle",
+      "iconColor": "info"
+    },
+    "success": {
+      "background": "successLight",
+      "border": "success",
+      "text": "onSuccessLight",
+      "icon": "checkmark-circle",
+      "iconColor": "success"
+    },
+    "warning": {
+      "background": "warningLight",
+      "border": "warning",
+      "text": "onWarningLight",
+      "icon": "warning",
+      "iconColor": "warning"
+    },
+    "error": {
+      "background": "dangerLight",
+      "border": "danger",
+      "text": "onDangerLight",
+      "icon": "alert-circle",
+      "iconColor": "danger"
+    }
+  },
+  "defaults": {
+    "variant": "info"
+  },
+  "spacing": {
+    "padding": "m",
+    "gap": "s"
+  },
+  "radius": "medium"
+}

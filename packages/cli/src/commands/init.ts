@@ -1,7 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
 import chalk from "chalk";
-import { detectExpoProject } from "../utils/detect";
+import {
+  detectExpoProject,
+  detectFlutterProject,
+  detectWebProject,
+  detectPackageManager,
+} from "../utils/detect";
 
 export async function initCommand() {
   try {
@@ -18,18 +23,34 @@ export async function initCommand() {
       // file does not exist, continue
     }
 
-    // Detect adapter (currently only expo)
-    const adapter = (await detectExpoProject(cwd)) ? "expo" : "unknown";
+    // Detect adapter
+    let adapter: string = "unknown";
+    if (await detectExpoProject(cwd)) {
+      adapter = "expo";
+    } else if (await detectFlutterProject(cwd)) {
+      adapter = "flutter";
+    } else if (await detectWebProject(cwd)) {
+      adapter = "web";
+    }
+    // Detect package manager
+    const packageManager = await detectPackageManager(cwd);
+
     const defaultConfig = {
       adapter,
-      componentsDir: "components/ui",
+      packageManager,
+      componentsDir:
+        adapter === "flutter" ? "lib/components/ui" : "components/ui",
     };
     await fs.writeFile(
       configPath,
       JSON.stringify(defaultConfig, null, 2),
       "utf8"
     );
-    console.log(chalk.green("Created crossui.config.json with defaults."));
+    console.log(
+      chalk.green(
+        `Created crossui.config.json with ${adapter} (${packageManager}) defaults.`
+      )
+    );
   } catch (err) {
     console.error(chalk.red("Failed to initialize CrossUI config:"), err);
   }

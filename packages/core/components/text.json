@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "h1": { "fontSize": "5xl", "lineHeight": "5xl", "fontWeight": "bold", "color": "black" },
+    "h2": { "fontSize": "4xl", "lineHeight": "4xl", "fontWeight": "semibold", "color": "black" },
+    "h3": { "fontSize": "3xl", "lineHeight": "3xl", "fontWeight": "semibold", "color": "black" },
+    "h4": { "fontSize": "2xl", "lineHeight": "2xl", "fontWeight": "semibold", "color": "black" },
+    "h5": { "fontSize": "xl", "lineHeight": "xl", "fontWeight": "semibold", "color": "black" },
+    "h6": { "fontSize": "lg", "lineHeight": "lg", "fontWeight": "medium", "color": "black" },
+    "body": { "fontSize": "base", "lineHeight": "base", "fontWeight": "regular", "color": "inputText" },
+    "subtitle": { "fontSize": "lg", "lineHeight": "lg", "fontWeight": "medium", "color": "inputText" },
+    "caption": { "fontSize": "xs", "lineHeight": "xs", "fontWeight": "regular", "color": "inputPlaceholder" },
+    "label": { "fontSize": "sm", "lineHeight": "sm", "fontWeight": "medium", "color": "inputText" },
+    "muted": { "fontSize": "sm", "lineHeight": "sm", "fontWeight": "regular", "color": "inputPlaceholder" },
+    "code": { "fontSize": "sm", "lineHeight": "sm", "fontWeight": "regular", "color": "primary", "fontFamily": "monospace" }
+  },
+  "defaults": {
+    "variant": "body"
+  }
+}

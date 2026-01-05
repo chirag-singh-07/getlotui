@@ -1,0 +1,22 @@
+name: crossui_flutter
+description: Flutter implementation of CrossUI design system.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.7
+  google_fonts: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true

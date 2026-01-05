@@ -1,0 +1,21 @@
+{
+  "layout": {
+    "radius": "large",
+    "padding": "l",
+    "maxWidth": 400,
+    "width": "90%"
+  },
+  "colors": {
+    "backdrop": "rgba(0, 0, 0, 0.5)",
+    "background": "white",
+    "title": "black",
+    "description": "inputText",
+    "actionSeparator": "border"
+  },
+  "animation": {
+    "duration": 250
+  },
+  "spacing": {
+    "gap": "m"
+  }
+}

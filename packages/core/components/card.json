@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "default": {
+      "background": "white",
+      "border": "border",
+      "shadow": "sm"
+    },
+    "elevated": {
+      "background": "white",
+      "border": "border",
+      "shadow": "md"
+    },
+    "pressable": {
+      "background": "white",
+      "border": "border",
+      "shadow": "sm",
+      "activeOpacity": 0.8
+    }
+  },
+  "layout": {
+    "radius": "medium",
+    "borderWidth": 1
+  },
+  "spacing": {
+    "padding": "l",
+    "headerGap": "xxs",
+    "contentTop": 0
+  },
+  "defaults": {
+    "variant": "default"
+  }
+}
