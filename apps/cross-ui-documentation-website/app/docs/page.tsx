@@ -66,7 +66,7 @@ export default function DocsPage() {
           <Button
             size="lg"
             variant="outline"
-            className="h-12 px-8 text-base border-2"
+            className="h-12 px-8 text-base border-2 hover:text-white"
             asChild
           >
             <Link href="/docs/components">Browse Components</Link>
