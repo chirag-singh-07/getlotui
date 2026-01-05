@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
-import '../theme/tokens.dart';
+import '../theme/config.dart';
 
-enum CrossUIButtonVariant { defaultVariant, secondary, outline, ghost, destructive }
+enum CrossUIButtonVariant {
+  defaultVariant,
+  secondary,
+  outline,
+  ghost,
+  destructive,
+}
+
 enum CrossUIButtonSize { sm, defaultSize, lg }
 
 class CrossUIButton extends StatelessWidget {
@@ -28,28 +35,30 @@ class CrossUIButton extends StatelessWidget {
     Color foregroundColor;
     BorderSide borderSide = BorderSide.none;
 
+    final themeColors = CrossUITheme.colors;
+
     switch (variant) {
       case CrossUIButtonVariant.secondary:
-        backgroundColor = CrossUITokens.secondary;
-        foregroundColor = CrossUITokens.onSecondary;
+        backgroundColor = themeColors['secondary'] ?? Colors.grey;
+        foregroundColor = Colors.white;
         break;
       case CrossUIButtonVariant.outline:
         backgroundColor = Colors.transparent;
-        foregroundColor = CrossUITokens.primary;
-        borderSide = const BorderSide(color: CrossUITokens.border);
+        foregroundColor = themeColors['primary'] ?? Colors.blue;
+        borderSide = BorderSide(color: themeColors['primary'] ?? Colors.blue);
         break;
       case CrossUIButtonVariant.ghost:
         backgroundColor = Colors.transparent;
-        foregroundColor = CrossUITokens.primary;
+        foregroundColor = themeColors['primary'] ?? Colors.blue;
         break;
       case CrossUIButtonVariant.destructive:
-        backgroundColor = CrossUITokens.danger;
-        foregroundColor = CrossUITokens.onDanger;
+        backgroundColor = Colors.red;
+        foregroundColor = Colors.white;
         break;
       case CrossUIButtonVariant.defaultVariant:
       default:
-        backgroundColor = CrossUITokens.primary;
-        foregroundColor = CrossUITokens.onPrimary;
+        backgroundColor = themeColors['primary'] ?? Colors.blue;
+        foregroundColor = themeColors['background'] ?? Colors.white;
         break;
     }
 
@@ -90,10 +99,7 @@ class CrossUIButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[
-              icon!,
-              const SizedBox(width: 8),
-            ],
+            if (icon != null) ...[icon!, const SizedBox(width: 8)],
             Text(
               label,
               style: TextStyle(

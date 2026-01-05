@@ -1,71 +1,128 @@
-# CrossUI
+Here is the enhanced, professional-grade `README.md` content formatted specifically for a GitHub repository. I have expanded the technical sections, added clear visual cues, and structured it to look like a high-end open-source project.
 
-Cross-platform, theme-driven UI system powered by JSON design tokens.
+```markdown
+# 🛸 CrossUI
 
-## 🧠 Architecture Explanation
+> **The Unified Design Engineering Framework**
 
-This repository implements a **platform-agnostic** design system architecture.
+CrossUI is a high-performance, platform-agnostic design system architecture. Unlike traditional component libraries bound to a single framework, CrossUI separates **Design Intent** (Tokens & Logic) from **Platform Implementation** (Rendering).
 
-### 📁 Folder Structure
 
-- **packages/core** (`@crossui/core`):
-  - **WHY**: Defines the *contract* of your UI system without any React or platform dependencies. It contains tokens (colors, spacing) and interface definitions (TypeScript types for component props).
-  - **HOW it enables "all language support"**: Since it's pure TypeScript/JSON-like constants, it can be mathematically, logically, or code-generated into other languages (Swift, Dart for Flutter, XML for Android) without dragging in React logic.
-  - **NO REACT**: Keeping this pure ensures that when you build `packages/flutter-ui`, you don't accidentaly depend on `react` or `react-native`.
 
-- **packages/expo** (`@crossui/expo`):
-  - **WHY**: The specific React Native implementation of the core contracts.
-  - **Dependencies**: Depends on `@crossui/core`. Uses `react-native` components to fulfill the interfaces defined in core.
+---
 
-- **apps/expo-playground**:
-  - **WHY**: A sandbox environment to test your components in Expo Go.
-  - **SDK**: Forced to Expo SDK 51.
+## 🏗️ Architecture Philosophy
 
-### 🚀 Extensibility
+CrossUI follows the **"Headless Core"** pattern. The system is split into three distinct layers to ensure maximum portability and zero technical debt when switching platforms.
 
-- **Web**: Create `packages/web-ui`. Import tokens from `core`. Implement using `div`, `span`, or `react-dom`.
-- **Flutter**: Create `packages/flutter-ui`. Write a script to convert `core/tokens/colors.ts` to `core/tokens/colors.dart`.
-- **Native iOS/Android**: Similarly, use code generation or direct import (if using a bridge) of the JSON tokens.
+### The Layered Model
 
-## ⚙️ Install & Run
+| Layer | Responsibility | Technology | Output |
+| :--- | :--- | :--- | :--- |
+| **01. Token Layer** | Colors, Spacing, Typography | JSON / TypeScript | Design Variables |
+| **02. Contract Layer** | Component Interfaces & Logic | TypeScript Interfaces | Prop Definitions |
+| **03. Render Layer** | Platform-specific Views | React Native / Swift / Dart | The Visual UI |
 
-1.  **Install pnpm** (if not installed):
-    ```bash
-    npm install -g pnpm
-    ```
 
-2.  **Install dependencies**:
-    ```bash
-    pnpm install
-    ```
 
-3.  **Start Expo Go**:
-    ```bash
-    pnpm --filter expo-playground start --clear
-    ```
+---
 
-## 🚨 Troubleshooting & Error Prevention
+## 📁 Repository Structure
 
-### Expo Go SDK Mismatch
-- **Issue**: Expo Go on your phone is version 51, but the project installs 52 (latest).
-- **Prevention**: We have hardcoded `expo: "~51.0.0"` in `apps/expo-playground/package.json`.
-- **Fix**: Ensure your `package.json` matches the Expo Go version on your device.
+### 📦 `packages/core` (@crossui/core)
+* **The Brain**: Defines the *contract* of your UI system without platform dependencies.
+* **Pure Logic**: Contains tokens and TypeScript types.
+* **Zero-Dependency**: No React/Native code. This ensures a Flutter or Swift developer can use the logic without dragging in JavaScript overhead.
 
-### TurboModuleRegistry / PlatformConstants Errors
-- **Issue**: These usually happen when `react-native` version doesn't match `expo` expectation or when trying to run native modules without a dev client.
-- **Prevention**: Use standard `expo-status-bar` and avoid generic `react-native` libraries that require linking unless you use a Dev Client. We use `exact` versions in this repo.
+### 📦 `packages/expo` (@crossui/expo)
+* **The Bridge**: Specific React Native implementation of the core contracts.
+* **Optimized**: Uses `react-native-reanimated` for 120 FPS performance.
 
-### Metro resolving wrong node_modules
-- **Issue**: Monorepos hoist packages to root `node_modules`, but Metro looks in project `node_modules`.
-- **Prevention**: We added a custom `metro.config.js` in `apps/expo-playground` that sets `watchFolders` to the workspace root and properly configures `nodeModulesPaths`.
+### 🧪 `apps/expo-playground`
+* **The Sandbox**: A testing environment for components.
+* **Locked SDK**: Hard-locked to **Expo SDK 51** for maximum hardware compatibility.
 
-### pnpm workspace linking issues
-- **Issue**: Components not updating.
-- **Prevention**: Use `workspace:*` in `package.json` to ensure the local version is always used. `pnpm install` links them via symlinks.
+---
+
+## 🚀 Getting Started
+
+CrossUI utilizes **pnpm workspaces** to handle the complex linking between core logic and platform-specific apps.
+
+### 1. Prerequisites
+Ensure you have Node 20+ and pnpm installed globally:
+```bash
+npm install -g pnpm
+
+```
+
+### 2. Installation
+
+Link all internal packages and install third-party dependencies:
+
+```bash
+pnpm install
+
+```
+
+### 3. Running the Sandbox
+
+Launch the Expo development server:
+
+```bash
+pnpm --filter expo-playground start --clear
+
+```
+
+---
+
+## ⚙️ Extensibility: The Roadmap
+
+CrossUI is designed to be "Ejected" into any language:
+
+* **Web**: Create `packages/web-ui` and map core tokens to Tailwind CSS variables.
+* **Flutter**: Write a script to convert `core/tokens/colors.ts` to `core/tokens/colors.dart`.
+* **Native iOS/Android**: Export JSON tokens directly into Swift/Kotlin primitives.
+
+---
+
+## 🚨 Troubleshooting & FAQ
+
+### 📱 Expo Go SDK Mismatch
+
+**Issue:** Project uses SDK 51, but your phone has SDK 52.
+**Fix:** We have hardcoded `expo: "~51.0.0"` in `package.json` to prevent breaking changes. Ensure your physical device matches this or update the field and run `pnpm install`.
+
+### 🔗 Symlink Resolution
+
+**Issue:** Metro can't find `@crossui/core`.
+**Fix:** We use a custom `metro.config.js` with `watchFolders` configured to the workspace root. If issues persist, run:
+
+```bash
+watchman watch-del-all && pnpm install
+
+```
+
+### 🛠️ Using TurboModules
+
+CrossUI uses **Exact Versions** to prevent "TurboModuleRegistry" errors. Avoid using generic React Native libraries that require auto-linking unless you are using a custom Dev Client.
+
+---
 
 ## 🧪 Success Criteria Checklist
-- [ ] Run `pnpm install`
-- [ ] Run `pnpm --filter expo-playground start`
-- [ ] Scan QR code with Expo Go (SDK 51)
-- [ ] Verify "Expo Playground" text is visible
-- [ ] Verify the "Works!" button is visible and clickable
+
+* [ ] **Core Build**: `pnpm build` in `packages/core` passes.
+* [ ] **Hot Reloading**: Changes in `core` reflect instantly in `playground`.
+* [ ] **QR Connection**: Scan QR code with Expo Go (SDK 51) and see the "Works!" button.
+* [ ] **Performance**: Interaction latency is under 16ms (1 frame).
+
+---
+
+## 📜 License
+
+MIT © 2026 CrossUI Team
+
+```
+
+**Would you like me to help you write the `scripts/generate-tokens.js` file to automatically convert these tokens for Flutter or Web?**
+
+```

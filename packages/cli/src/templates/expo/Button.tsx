@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { theme } from "../../theme/config";
 
 interface ButtonProps {
   title: string;
@@ -16,10 +17,12 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const backgroundColor =
     variant === "primary"
-      ? "#2563eb" // blue-600
+      ? theme.colors.primary
       : variant === "secondary"
-      ? "#6b7280" // gray-500
-      : "#e5e7eb"; // gray-200
+      ? theme.colors.secondary || "#94a3b8"
+      : theme.colors.background === "#ffffff"
+      ? "#e5e7eb"
+      : theme.colors.background;
 
   return (
     <TouchableOpacity
