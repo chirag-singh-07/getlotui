@@ -1,7 +1,6 @@
 {
   "name": "getlotui",
   "description": "Cross-platform, theme-driven UI system powered by JSON design tokens.",
-  "private": true,
   "scripts": {
     "clean": "rm -rf node_modules packages/*/node_modules apps/*/node_modules",
     "dev": "npm start --workspace=apps/expo-playground",
