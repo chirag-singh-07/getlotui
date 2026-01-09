@@ -60,6 +60,28 @@ export default function App() {
 2.  **Ultimate Customization**: Want to change the animation curve? Go to `components/ui/Button.tsx` and change it.
 3.  **Zero Bloat**: Only include the components you actually use.
 
+## 📐 Architecture
+
+GetLotUI separates **Design Intent** from **Platform Implementation**. This ensures that your brand identity remains consistent even if you change your tech stack.
+
+```text
+    ┌───────────────────────┐
+    │ Core Tokens JSON/TS   │
+    └───────────┬───────────┘
+                │
+                ▼
+       ┌─────────────────┐
+       │    CLI Engine   │
+       └────────┬────────┘
+                │
+        ┌───────┼───────┐
+        │       │       │
+        ▼       ▼       ▼
+    ┌───────┐┌───────┐┌─────────┐
+    │  Web  ││ Expo  ││ Flutter │
+    └───────┘└───────┘└─────────┘
+```
+
 ## 🛠 Commands
 
 | Command | Description |
