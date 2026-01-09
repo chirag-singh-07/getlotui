@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { Menu } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const docsNav = [
   {
@@ -28,11 +28,13 @@ const docsNav = [
       { title: "Input", href: "/docs/components/input" },
     ],
   },
-]
+];
+
+import { Logo } from "@/components/logo";
 
 export function MobileSidebar() {
-  const pathname = usePathname()
-  const [open, setOpen] = useState(false)
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -43,6 +45,14 @@ export function MobileSidebar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="pr-0 w-[300px] sm:w-[400px]">
+        <Link
+          href="/"
+          className="mb-8 flex items-center gap-2 px-2"
+          onClick={() => setOpen(false)}
+        >
+          <Logo className="h-6 w-6" />
+          <span className="font-bold text-lg">CrossUI</span>
+        </Link>
         <nav className="space-y-6 mt-6">
           {docsNav.map((section, i) => (
             <div key={i} className="space-y-3">
@@ -55,7 +65,9 @@ export function MobileSidebar() {
                     onClick={() => setOpen(false)}
                     className={cn(
                       "block rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted",
-                      pathname === item.href ? "font-medium text-foreground bg-muted" : "text-muted-foreground",
+                      pathname === item.href
+                        ? "font-medium text-foreground bg-muted"
+                        : "text-muted-foreground"
                     )}
                   >
                     {item.title}
@@ -67,5 +79,5 @@ export function MobileSidebar() {
         </nav>
       </SheetContent>
     </Sheet>
-  )
+  );
 }

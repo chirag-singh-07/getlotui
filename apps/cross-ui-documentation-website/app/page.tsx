@@ -386,10 +386,7 @@ export default function LandingPage() {
             className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-3 gap-6"
           >
             {/* Feature 1 - CLI First (Large) */}
-            <motion.div
-              variants={item}
-              className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
-            >
+            <motion.div className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group">
               <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Terminal className="w-80 h-80 text-white rotate-12" />
               </div>
@@ -408,10 +405,7 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Feature 2 - Customizable */}
-            <motion.div
-              variants={item}
-              className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
-            >
+            <motion.div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group">
               <div className="relative z-10 h-full flex flex-col">
                 <div className="h-16 w-16 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-8 border border-pink-500/20 shadow-inner">
                   <Palette className="h-8 w-8 text-pink-400" />
@@ -424,10 +418,7 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Feature 3 - Ownership */}
-            <motion.div
-              variants={item}
-              className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
-            >
+            <motion.div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group">
               <div className="relative z-10 h-full flex flex-col">
                 <div className="h-16 w-16 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-8 border border-blue-500/20 shadow-inner">
                   <Code2 className="h-8 w-8 text-blue-400" />
@@ -443,10 +434,7 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Feature 4 - Perf */}
-            <motion.div
-              variants={item}
-              className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group"
-            >
+            <motion.div className="md:col-span-2 relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-10 hover:bg-white/[0.08] transition-all duration-500 group">
               <div className="absolute bottom-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity">
                 <Zap className="w-80 h-80 text-yellow-400 -rotate-12" />
               </div>

@@ -8,12 +8,14 @@ import { MobileSidebar } from "@/components/mobile-sidebar";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { Logo } from "@/components/logo";
+
 export function SiteHeader() {
   const pathname = usePathname();
   const isDocsPage = pathname?.startsWith("/docs");
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
         {isDocsPage && (
           <div className="mr-2 md:hidden">
@@ -23,8 +25,9 @@ export function SiteHeader() {
 
         <div className="mr-4 flex lg:mr-6">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <div className="relative">
+            <div className="relative flex items-center gap-2">
               <div className="absolute inset-0 bg-linear-to-r from-primary to-accent opacity-20 blur-xl" />
+              <Logo className="relative h-8 w-8" />
               <span className="relative font-bold text-xl bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
                 CrossUI
               </span>

@@ -35,7 +35,7 @@ class _CrossUIPlaygroundState extends State<CrossUIPlayground> {
         useMaterial3: true,
         brightness: Brightness.light,
         scaffoldBackgroundColor: CrossUIThemeData.light.background,
-        extensions: const [CrossUIThemeData.light],
+        extensions: const <ThemeExtension<dynamic>>[CrossUIThemeData.light],
         // colorScheme: ColorScheme.fromSeed(seedColor: CrossUIThemeData.light.primary),
         textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme),
       ),
@@ -43,7 +43,7 @@ class _CrossUIPlaygroundState extends State<CrossUIPlayground> {
         useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: CrossUIThemeData.dark.background,
-        extensions: const [CrossUIThemeData.dark],
+        extensions: const <ThemeExtension<dynamic>>[CrossUIThemeData.dark],
         // colorScheme: ColorScheme.fromSeed(seedColor: CrossUIThemeData.dark.primary, brightness: Brightness.dark),
         textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
       ),
@@ -75,7 +75,7 @@ class _PlaygroundHomeState extends State<PlaygroundHome> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: Icon(
               Theme.of(context).brightness == Brightness.dark
@@ -90,7 +90,7 @@ class _PlaygroundHomeState extends State<PlaygroundHome> {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             const _SectionHeader(title: 'Typography'),
             const CrossUIText(
               'Heading 1',
@@ -122,7 +122,7 @@ class _PlaygroundHomeState extends State<PlaygroundHome> {
             Wrap(
               spacing: 12,
               runSpacing: 12,
-              children: [
+              children: <Widget>[
                 CrossUIButton(
                   label: 'Primary',
                   onPressed: () {},
@@ -152,7 +152,7 @@ class _PlaygroundHomeState extends State<PlaygroundHome> {
             ),
             const SizedBox(height: 24),
             Row(
-              children: [
+              children: <Widget>[
                 CrossUIButton(
                   label: 'Small',
                   onPressed: () {},
@@ -206,7 +206,7 @@ class _PlaygroundHomeState extends State<PlaygroundHome> {
               description: 'Last edited 2 hours ago',
               content: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     'This card demonstrates the standard modular structure of CrossUI components.',
                     style: TextStyle(color: context.theme.textMuted),
@@ -260,7 +260,7 @@ class _SectionHeader extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Text(
             title,
             style: GoogleFonts.outfit(
