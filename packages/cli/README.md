@@ -1,78 +1,79 @@
-# Getting Started with GetLotUI
+# GetLotUI
 
-GetLotUI is a component scaffolding tool that copies customizable, source-code components directly into your project. It is designed to work seamlessly with Expo and React Native applications.
+[![npm version](https://img.shields.io/npm/v/getlotui.svg)](https://www.npmjs.com/package/getlotui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://img.shields.io/npm/dm/getlotui.svg)](https://www.npmjs.com/package/getlotui)
 
-## Prerequisites
+**The Unified, Token-Driven Design System for Every Platform.**
 
-- **Node.js** (v18 or higher)
-- An existing **Expo** project (managed or bare workflow)
+**GetLotUI** is not a UI library you install. It's a tool that **scaffolds** customizable, source-code components directly into your project. Inspired by shadcn/ui, but built for the multi-platform era.
 
-## Installation
+- ✅ **Expo / React Native** (First-class support)
+- 🚧 **Flutter** (Beta)
+- 🚧 **Web** (Alpha)
 
-You don't need to install GetLotUI globally. You can use it directly via `npx`.
+---
 
-However, if you prefer to install it as a dev dependency in your project:
+## 🚀 Quick Start
 
-```bash
-pnpm add -D getlotui
-# or
-npm install -D getlotui
-# or
-yarn add -D getlotui
-```
+No installation required. Just use `npx`:
 
-## Initialization
-
-Run the `init` command to set up GetLotUI in your project. This will create a `getlotui.config.json` file in your root directory.
+### 1. Initialize
+Run this in your project root to set up the theme and configuration:
 
 ```bash
 npx getlotui init
 ```
 
-The CLI will:
-1. Detect your project type (e.g., Expo).
-2. Create `getlotui.config.json` with default settings:
-
-```json
-{
-  "adapter": "expo",
-  "componentsDir": "components/ui"
-}
-```
-
-## Adding Components
-
-Once initialized, you can add components to your project. Use the `add` command followed by the component name.
+### 2. Add Components
+Pick the components you need. They will be copied to your `components/ui` folder:
 
 ```bash
-npx getlotui add button
-npx getlotui add input
+npx getlotui add button card input
 ```
 
-This will:
-1. Download/Copy the component source code to your configured `componentsDir` (default: `components/ui`).
-2. Add any necessary utility files (if applicable in future updates).
+---
 
-Now you can import and use the component in your app:
+## 💻 Usage
+
+Once added, the component is **yours**. Import it like any other file in your project:
 
 ```tsx
 import { Button } from '@/components/ui/Button';
 
 export default function App() {
   return (
-    <Button title="Click Me" onPress={() => console.log('Pressed')} variant="primary" />
+    <Button 
+      variant="primary" 
+      size="lg" 
+      onPress={() => console.log('Hello GetLotUI')} 
+    >
+      Click Me
+    </Button>
   );
 }
 ```
 
-## Customization
+## 🎨 Why Source Code?
 
-Since GetLotUI copies the **source code** into your project, you have full control.
-- Open `components/ui/Button.tsx`.
-- Modify styles, props, or behavior to match your design system.
-- No vendor lock-in; it's your code now!
+1.  **No Vendor Lock-in**: You own the code. If we disappear tomorrow, your app keeps working.
+2.  **Ultimate Customization**: Want to change the animation curve? Go to `components/ui/Button.tsx` and change it.
+3.  **Zero Bloat**: Only include the components you actually use.
 
-## Troubleshooting
+## 🛠 Commands
 
-- **"getlotui.config.json not found"**: Run `npx getlotui init` first.
-- **"Component already exists"**: The CLI won't overwrite existing files to prevent data loss. Rename your existing file or delete it if you want to replace it.
+| Command | Description |
+| :--- | :--- |
+| `init` | Initialize configuration and base design tokens |
+| `add [components...]` | Add one or more components to your project |
+| `list` | List all available components |
+
+## 🔗 Documentation
+
+Visit our documentation website for detailed guides, component previews, and theming instructions.
+
+[**Read the Docs →**](https://getlotui.vercel.app)
+
+## 📄 License
+
+MIT © [Chirag Singh](https://github.com/chirag-singh-07)
