@@ -29,7 +29,7 @@ export function SiteHeader() {
               <div className="absolute inset-0 bg-linear-to-r from-primary to-accent opacity-20 blur-xl" />
               <Logo className="relative h-8 w-8" />
               <span className="relative font-bold text-xl bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
-                CrossUI
+                GetLotUI
               </span>
             </div>
           </Link>

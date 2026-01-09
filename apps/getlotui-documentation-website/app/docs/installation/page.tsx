@@ -17,8 +17,8 @@ export default function InstallationPage() {
   const frameworkContent = {
     expo: {
       create: `npx create-expo-app my-app\ncd my-app`,
-      init: `npx crossui init`,
-      add: `npx crossui add button`,
+      init: `npx getlotui init`,
+      add: `npx getlotui add button`,
       structure: `my-app/
 ├── app/
 │   └── (your app code)
@@ -34,8 +34,8 @@ export default function InstallationPage() {
     },
     flutter: {
       create: `flutter create my_app\ncd my_app`,
-      init: `npx crossui init`,
-      add: `npx crossui add button`,
+      init: `npx getlotui init`,
+      add: `npx getlotui add button`,
       structure: `my_app/
 ├── lib/
 │   ├── components/
@@ -47,8 +47,8 @@ export default function InstallationPage() {
     },
     web: {
       create: `npx create-next-app@latest my-app\ncd my-app`,
-      init: `npx crossui init`,
-      add: `npx crossui add button`,
+      init: `npx getlotui init`,
+      add: `npx getlotui add button`,
       structure: `my-app/
 ├── app/
 ├── components/
@@ -59,8 +59,8 @@ export default function InstallationPage() {
     },
     swift: {
       create: `# Create new Xcode project`,
-      init: `npx crossui init`,
-      add: `npx crossui add button`,
+      init: `npx getlotui init`,
+      add: `npx getlotui add button`,
       structure: `MyApp/
 ├── ContentView.swift
 ├── Components/
@@ -82,7 +82,7 @@ export default function InstallationPage() {
           Installation
         </h1>
         <p className="text-lg text-muted-foreground">
-          How to install and configure CrossUI for your specific platform.
+          How to install and configure GetLotUI for your specific platform.
         </p>
       </div>
 

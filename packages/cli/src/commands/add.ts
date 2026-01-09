@@ -6,7 +6,7 @@ import { copyComponent } from "../utils/fs";
 export async function addCommand(component: string) {
   try {
     const cwd = process.cwd();
-    const configPath = path.join(cwd, "crossui.config.json");
+    const configPath = path.join(cwd, "getlotui.config.json");
     // Ensure config exists
     let config;
     try {
@@ -14,7 +14,7 @@ export async function addCommand(component: string) {
       config = JSON.parse(configContent);
     } catch {
       console.error(
-        chalk.red("crossui.config.json not found. Run `crossui init` first.")
+        chalk.red("getlotui.config.json not found. Run `getlotui init` first.")
       );
       return;
     }

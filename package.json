@@ -1,5 +1,5 @@
 {
-  "name": "crossui",
+  "name": "getlotui",
   "description": "Cross-platform, theme-driven UI system powered by JSON design tokens.",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "prepare": "npm install --prefix packages/cli"
   },
   "bin": {
-    "crossui": "packages/cli/dist/bin.js"
+    "getlotui": "packages/cli/dist/bin.js"
   },
   "packageManager": "pnpm@9.0.0",
   "dependencies": {

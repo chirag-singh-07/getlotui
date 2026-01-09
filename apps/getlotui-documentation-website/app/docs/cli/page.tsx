@@ -14,10 +14,10 @@ export default function CLIPage() {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
-  const initCode = `npx crossui init`;
-  const addSingleCode = `npx crossui add button`;
-  const addMultipleCode = `npx crossui add button input card`;
-  const listCode = `npx crossui list`;
+  const initCode = `npx getlotui init`;
+  const addSingleCode = `npx getlotui add button`;
+  const addMultipleCode = `npx getlotui add button input card`;
+  const listCode = `npx getlotui list`;
 
   return (
     <div className="space-y-8">
@@ -29,14 +29,14 @@ export default function CLIPage() {
           CLI Reference
         </h1>
         <p className="text-lg text-muted-foreground">
-          Use the CrossUI CLI to add components to your project. Simple, fast,
+          Use the GetLotUI CLI to add components to your project. Simple, fast,
           and powerful.
         </p>
       </div>
 
       <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
         <p className="text-sm text-foreground leading-relaxed">
-          <strong>Philosophy:</strong> CrossUI follows the shadcn/ui approach.
+          <strong>Philosophy:</strong> GetLotUI follows the shadcn/ui approach.
           Components are added to your project, not installed as dependencies.
           This gives you full control and ownership of the code.
         </p>
@@ -49,11 +49,11 @@ export default function CLIPage() {
           className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight flex items-center gap-2"
         >
           <Sparkles className="h-6 w-6" />
-          crossui init
+          getlotui init
         </h2>
         <p className="text-muted-foreground">
-          Initialize CrossUI in your project. This command sets up the necessary
-          configuration files, dependencies, and project structure.
+          Initialize GetLotUI in your project. This command sets up the
+          necessary configuration files, dependencies, and project structure.
         </p>
         <div className="relative">
           <pre className="bg-muted p-4 rounded-lg font-mono text-sm overflow-x-auto">
@@ -118,7 +118,7 @@ export default function CLIPage() {
           className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight flex items-center gap-2"
         >
           <Package className="h-6 w-6" />
-          crossui add
+          getlotui add
         </h2>
         <p className="text-muted-foreground">
           Add a component to your project. The component code will be copied
@@ -229,9 +229,9 @@ export default function CLIPage() {
                 <p className="text-sm text-muted-foreground">
                   Run{" "}
                   <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
-                    crossui init
+                    getlotui init
                   </code>{" "}
-                  once to set up CrossUI
+                  once to set up GetLotUI
                 </p>
               </div>
             </li>
@@ -246,7 +246,7 @@ export default function CLIPage() {
                 <p className="text-sm text-muted-foreground">
                   Use{" "}
                   <code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
-                    crossui add
+                    getlotui add
                   </code>{" "}
                   to add components to your project
                 </p>

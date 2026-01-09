@@ -1,17 +1,17 @@
 {
-  "name": "crossui",
+  "name": "getlotui",
   "version": "0.1.0",
-  "description": "CLI for CrossUI component scaffolding",
+  "description": "CLI for GetLotUI component scaffolding",
   "main": "dist/index.js",
   "bin": {
-    "crossui": "dist/bin.js"
+    "getlotui": "dist/bin.js"
   },
   "scripts": {
     "build": "tsc -p . && node -e \"require('fs-extra').copySync('src/templates', 'dist/templates')\"",
-    "prepare": "pnpm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
-    "crossui",
+    "getlotui",
     "cli",
     "component",
     "scaffold"

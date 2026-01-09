@@ -302,7 +302,7 @@
       "languageVersion": "3.8"
     },
     {
-      "name": "crossui_flutter",
+      "name": "getlotui_flutter",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"

@@ -6,13 +6,13 @@ export function runCLI() {
   const program = new Command();
 
   program
-    .name("crossui")
-    .description("CrossUI CLI for scaffolding components")
+    .name("getlotui")
+    .description("GetLotUI CLI for scaffolding components")
     .version("0.1.0");
 
   program
     .command("init")
-    .description("Initialize CrossUI config")
+    .description("Initialize GetLotUI config")
     .action(initCommand);
   program
     .command("add <component>")

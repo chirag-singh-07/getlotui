@@ -137,7 +137,7 @@ export default function LandingPage() {
             >
               <Sparkles className="mr-2 h-3.5 w-3.5 text-purple-400 animate-pulse" />
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent font-bold">
-                CrossUI 2.0
+                GetLotUI 2.0
               </span>
               <span className="ml-2 text-gray-400">is here</span>
             </motion.div>
@@ -259,7 +259,7 @@ export default function LandingPage() {
                 <div className="h-3 w-3 rounded-full bg-[#27C93F] opacity-80" />
               </div>
               <div className="text-xs font-mono text-muted-foreground">
-                crossui-cli — 80x24
+                getlotui-cli — 80x24
               </div>
               <div className="w-10"></div>
             </div>
@@ -287,7 +287,7 @@ export default function LandingPage() {
                   </div>
                   <span className="text-green-400 font-bold">$</span>{" "}
                   <span className="text-blue-400">
-                    {packageManager === "npm" ? "npx" : "bunx"} crossui
+                    {packageManager === "npm" ? "npx" : "bunx"} getlotui
                   </span>{" "}
                   add authentication-screen
                   {"\n"}
@@ -336,7 +336,7 @@ export default function LandingPage() {
               {
                 icon: Download,
                 title: "Install CLI",
-                desc: "Run `npx crossui init` to set up your project.",
+                desc: "Run `npx getlotui init` to set up your project.",
               },
               {
                 icon: Copy,
@@ -521,7 +521,7 @@ export default function LandingPage() {
         <section className="container mx-auto max-w-7xl px-4 py-24 border-t border-white/5">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              Why CrossUI?
+              Why GetLotUI?
             </h2>
             <p className="text-xl text-muted-foreground">
               See how we stack up against the rest.
@@ -534,7 +534,7 @@ export default function LandingPage() {
               <div className="text-center text-muted-foreground">
                 Traditional UI Libs
               </div>
-              <div className="text-center text-purple-400">CrossUI</div>
+              <div className="text-center text-purple-400">GetLotUI</div>
             </div>
             {[
               {
@@ -661,7 +661,7 @@ export default function LandingPage() {
               {
                 name: "Sarah Jones",
                 role: "CTO @ Startup",
-                text: "We migrated our entire Expo app to CrossUI in a weekend. The performance gains were immediate.",
+                text: "We migrated our entire Expo app to GetLotUI in a weekend. The performance gains were immediate.",
               },
               {
                 name: "Michael Pratt",
@@ -707,7 +707,7 @@ export default function LandingPage() {
             {[
               {
                 q: "Is this really free?",
-                a: "Yes, CrossUI is 100% open source and free to use for personal and commercial projects.",
+                a: "Yes, GetLotUI is 100% open source and free to use for personal and commercial projects.",
               },
               {
                 q: "How do I update components?",

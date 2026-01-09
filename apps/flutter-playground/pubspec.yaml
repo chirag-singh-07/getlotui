@@ -1,5 +1,5 @@
 name: flutter_playground
-description: A playground for CrossUI Flutter components.
+description: A playground for GetLotUI Flutter components.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  crossui_flutter:
+  getlotui_flutter:
     path: ../../packages/flutter
   google_fonts: ^6.1.0
   flutter_svg: ^2.0.9

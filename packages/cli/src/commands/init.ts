@@ -11,12 +11,12 @@ import {
 export async function initCommand() {
   try {
     const cwd = process.cwd();
-    const configPath = path.join(cwd, "crossui.config.json");
+    const configPath = path.join(cwd, "getlotui.config.json");
     // Check if config already exists
     try {
       await fs.access(configPath);
       console.log(
-        chalk.yellow("crossui.config.json already exists. Skipping creation.")
+        chalk.yellow("getlotui.config.json already exists. Skipping creation.")
       );
       return;
     } catch {
@@ -60,7 +60,7 @@ export async function initCommand() {
       const themeContent = isFlutter
         ? `import 'package:flutter/material.dart';
 
-class CrossUITheme {
+class GetLotUITheme {
   static const colors = {
     'primary': Color(0xFF6366F1),
     'background': Color(0xFFFFFFFF),
@@ -99,10 +99,10 @@ class CrossUITheme {
 
     console.log(
       chalk.green(
-        `Created crossui.config.json with ${adapter} (${packageManager}) defaults.`
+        `Created getlotui.config.json with ${adapter} (${packageManager}) defaults.`
       )
     );
   } catch (err) {
-    console.error(chalk.red("Failed to initialize CrossUI config:"), err);
+    console.error(chalk.red("Failed to initialize GetLotUI config:"), err);
   }
 }

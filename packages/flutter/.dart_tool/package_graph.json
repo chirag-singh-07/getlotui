@@ -1,10 +1,10 @@
 {
   "roots": [
-    "crossui_flutter"
+    "getlotui_flutter"
   ],
   "packages": [
     {
-      "name": "crossui_flutter",
+      "name": "getlotui_flutter",
       "version": "0.1.0",
       "dependencies": [
         "flutter",
