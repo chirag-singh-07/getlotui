@@ -78,10 +78,10 @@ export default function DocsPage() {
       <motion.div variants={item} className="space-y-6 pt-8">
         <div className="space-y-2">
           <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
-            What is CrossUI?
+            What is GetLotUI?
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            CrossUI is{" "}
+            GetLotUI is{" "}
             <span className="text-foreground font-medium italic">not</span> a
             traditional component library. It is a collection of re-usable
             components that you own, designed to work seamlessly across multiple
@@ -270,7 +270,7 @@ export default function DocsPage() {
             The Architecture
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl">
-            CrossUI is architected around the concept of{" "}
+            GetLotUI is architected around the concept of{" "}
             <strong>Headless Multi-Platform Logic</strong>. We encapsulate
             complex behaviors into a universal core, allowing for native-speed
             rendering on every target.
@@ -352,7 +352,7 @@ export default function DocsPage() {
                   <div className="p-6 rounded-2xl bg-primary text-primary-foreground shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
-                        CrossUI Core
+                        GetLotUI Core
                       </span>
                       <Layers className="h-4 w-4 opacity-80" />
                     </div>
@@ -457,7 +457,7 @@ export default function DocsPage() {
           {[
             {
               q: "Why not just use an NPM package?",
-              a: "Packages make it hard to customize. If you want to change a specific animation or a sub-component behavior, you're stuck. CrossUI gives you the source code so there are no black boxes.",
+              a: "Packages make it hard to customize. If you want to change a specific animation or a sub-component behavior, you're stuck. GetLotUI gives you the source code so there are no black boxes.",
             },
             {
               q: "Does this support Tailwind CSS?",
@@ -465,7 +465,7 @@ export default function DocsPage() {
             },
             {
               q: "Can I use this in an existing project?",
-              a: "Absolutely. You can initialize CrossUI in any folder. It won't interfere with your existing components.",
+              a: "Absolutely. You can initialize GetLotUI in any folder. It won't interfere with your existing components.",
             },
           ].map((faq, i) => (
             <div key={i} className="space-y-2">
@@ -479,7 +479,7 @@ export default function DocsPage() {
       {/* Why Choose Section */}
       <motion.div variants={item} className="space-y-6 pt-8">
         <h2 className="scroll-m-20 text-3xl font-bold tracking-tight border-b border-border/50 pb-2">
-          Why Choose CrossUI?
+          Why Choose GetLotUI?
         </h2>
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
           {[

@@ -1,6 +1,6 @@
-# Getting Started with CrossUI
+# Getting Started with GetLotUI
 
-CrossUI is a component scaffolding tool that copies customizable, source-code components directly into your project. It is designed to work seamlessly with Expo and React Native applications.
+GetLotUI is a component scaffolding tool that copies customizable, source-code components directly into your project. It is designed to work seamlessly with Expo and React Native applications.
 
 ## Prerequisites
 
@@ -9,29 +9,29 @@ CrossUI is a component scaffolding tool that copies customizable, source-code co
 
 ## Installation
 
-You don't need to install CrossUI globally. You can use it directly via `npx`.
+You don't need to install GetLotUI globally. You can use it directly via `npx`.
 
 However, if you prefer to install it as a dev dependency in your project:
 
 ```bash
-pnpm add -D crossui
+pnpm add -D getlotui
 # or
-npm install -D crossui
+npm install -D getlotui
 # or
-yarn add -D crossui
+yarn add -D getlotui
 ```
 
 ## Initialization
 
-Run the `init` command to set up CrossUI in your project. This will create a `crossui.config.json` file in your root directory.
+Run the `init` command to set up GetLotUI in your project. This will create a `getlotui.config.json` file in your root directory.
 
 ```bash
-npx crossui init
+npx getlotui init
 ```
 
 The CLI will:
 1. Detect your project type (e.g., Expo).
-2. Create `crossui.config.json` with default settings:
+2. Create `getlotui.config.json` with default settings:
 
 ```json
 {
@@ -45,8 +45,8 @@ The CLI will:
 Once initialized, you can add components to your project. Use the `add` command followed by the component name.
 
 ```bash
-npx crossui add button
-npx crossui add input
+npx getlotui add button
+npx getlotui add input
 ```
 
 This will:
@@ -67,12 +67,12 @@ export default function App() {
 
 ## Customization
 
-Since CrossUI copies the **source code** into your project, you have full control.
+Since GetLotUI copies the **source code** into your project, you have full control.
 - Open `components/ui/Button.tsx`.
 - Modify styles, props, or behavior to match your design system.
 - No vendor lock-in; it's your code now!
 
 ## Troubleshooting
 
-- **"crossui.config.json not found"**: Run `npx crossui init` first.
+- **"getlotui.config.json not found"**: Run `npx getlotui init` first.
 - **"Component already exists"**: The CLI won't overwrite existing files to prevent data loss. Rename your existing file or delete it if you want to replace it.

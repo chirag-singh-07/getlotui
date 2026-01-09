@@ -1,8 +1,8 @@
-# 🛸 CrossUI
+# 🛸 GetLotUI
 
 > **The Unified, Token-Driven Design System for Every Platform.**
 
-CrossUI is a high-performance, platform-agnostic design system built on a **"Token-First"** architecture. It allows developers to define design intent once and deploy it across **Web**, **Expo (React Native)**, and **Flutter** with pixel-perfect consistency.
+GetLotUI is a high-performance, platform-agnostic design system built on a **"Token-First"** architecture. It allows developers to define design intent once and deploy it across **Web**, **Expo (React Native)**, and **Flutter** with pixel-perfect consistency.
  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
@@ -10,11 +10,11 @@ CrossUI is a high-performance, platform-agnostic design system built on a **"Tok
  
 ---
 
-## 🤔 Why CrossUI?
+## 🤔 Why GetLotUI?
 
 Maintaining a consistent design system across Web and Mobile is notoriously difficult. Developers often end up duplicating styles in CSS, React Native Stylesheets, and Dart, leading to **brand drift** and maintenance nightmares.
 
-**CrossUI solves this by:**
+**GetLotUI solves this by:**
 1. **Centralizing Truth**: Every color, font size, and spacing unit lives in a single JSON source.
 2. **Native Performance**: No runtime translation layers. We generate native code for each platform.
 3. **Developer Experience**: Use a familiar CLI to "add" components just like shadcn/ui.
@@ -41,7 +41,7 @@ Maintaining a consistent design system across Web and Mobile is notoriously diff
 
 ## 📐 Architecture
 
-CrossUI separates **Design Intent** from **Platform Implementation**. This ensures that your brand identity remains consistent even if you change your tech stack.
+GetLotUI separates **Design Intent** from **Platform Implementation**. This ensures that your brand identity remains consistent even if you change your tech stack.
 
 ```mermaid
 graph TD
@@ -73,7 +73,7 @@ graph TD
 
 ## 🧩 Available Components
 
-Scaffold these instantly using `npx crossui add <name>`:
+Scaffold these instantly using `npx getlotui add <name>`:
 
 | Component | Expo | Flutter | Web |
 | :--- | :---: | :---: | :---: |
@@ -90,11 +90,11 @@ Scaffold these instantly using `npx crossui add <name>`:
 ## 📁 Repository Structure
 
 ### 📦 Packages (`/packages`)
-- **`@crossui/core`**: The brain. Contains tokens, design system logic, and shared types.
-- **`@crossui/cli`**: The developer's Swiss Army knife. Used to manage the design system.
-- **`@crossui/expo`**: React Native (Expo) implementation of the CrossUI components.
-- **`@crossui/flutter`**: Flutter implementation using Dart tokens.
-- **`@crossui/web`**: Web implementation (Tailwind CSS and React).
+- **`@getlotui/core`**: The brain. Contains tokens, design system logic, and shared types.
+- **`@getlotui/cli`**: The developer's Swiss Army knife. Used to manage the design system.
+- **`@getlotui/expo`**: React Native (Expo) implementation of the GetLotUI components.
+- **`@getlotui/flutter`**: Flutter implementation using Dart tokens.
+- **`@getlotui/web`**: Web implementation (Tailwind CSS and React).
 
 ### 🧪 Apps (`/apps`)
 - **`documentation`**: The official Next.js documentation website.
@@ -128,19 +128,19 @@ pnpm install
 
 ## 🛠️ CLI Usage
 
-The CrossUI CLI allows you to easily integrate the design system into any project.
+The GetLotUI CLI allows you to easily integrate the design system into any project.
 
 ### Initialize a project
 Automatically detects your framework (Expo, Flutter, or Web) and sets up the configuration.
 ```bash
-npx crossui init
+npx getlotui init
 ```
 
 ### Add a component
-Fetch a pre-styled component from the CrossUI library.
+Fetch a pre-styled component from the GetLotUI library.
 ```bash
-npx crossui add button
-npx crossui add card
+npx getlotui add button
+npx getlotui add card
 ```
 
 ---
@@ -156,4 +156,4 @@ npx crossui add card
 ---
 
 ## 📜 License
-MIT © 2026 CrossUI Team. Built with ❤️ for the community.
+MIT © 2026 GetLotUI Team. Built with ❤️ for the community.

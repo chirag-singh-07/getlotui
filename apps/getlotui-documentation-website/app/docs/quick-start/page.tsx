@@ -49,7 +49,7 @@ export default function QuickStartPage() {
             Get Started in Seconds
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed max-w-[800px] text-balance">
-            Follow these steps to integrate CrossUI into your project and start
+            Follow these steps to integrate GetLotUI into your project and start
             building high-quality interfaces across platforms.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function QuickStartPage() {
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-bold">
               1
             </span>
-            Initialize CrossUI
+            Initialize GetLotUI
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             Run the initialization command to set up the necessary configuration
@@ -70,11 +70,11 @@ export default function QuickStartPage() {
           </p>
         </div>
         <div className="space-y-4">
-          <InstallationCommand code="npx crossui init" title="Initial Setup" />
+          <InstallationCommand code="npx getlotui init" title="Initial Setup" />
           <p className="text-sm text-muted-foreground italic">
             This will create a{" "}
             <code className="bg-muted px-1.5 py-0.5 rounded font-mono">
-              crossui.json
+              getlotui.json
             </code>{" "}
             and a{" "}
             <code className="bg-muted px-1.5 py-0.5 rounded font-mono">
@@ -101,7 +101,7 @@ export default function QuickStartPage() {
         </div>
         <div className="space-y-4">
           <InstallationCommand
-            code="npx crossui add button"
+            code="npx getlotui add button"
             title="Add Component"
           />
           <p className="text-sm text-muted-foreground">

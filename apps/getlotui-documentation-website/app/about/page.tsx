@@ -73,7 +73,7 @@ export default function AboutPage() {
                 variants={item}
                 className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto"
               >
-                CrossUI was born out of a simple frustration: why does building
+                GetLotUI was born out of a simple frustration: why does building
                 high-quality, consistent cross-platform interfaces have to be so
                 difficult?
               </motion.p>
@@ -203,7 +203,7 @@ export default function AboutPage() {
                     year: "Building in Public",
                     title: "The Community Bridge",
                     content:
-                      "CrossUI wasn't built in a vacuum. Hand-crafted by Chirag Singh from India, the project was shared with the world through early wins and failures on Github. Each bug report from a developer in Brazil or a feature request from an engineer in Tokyo helped Chirag refine the robust CLI and theme generator you see today, proving that great engineering has no borders.",
+                      "GetLotUI wasn't built in a vacuum. Hand-crafted by Chirag Singh from India, the project was shared with the world through early wins and failures on Github. Each bug report from a developer in Brazil or a feature request from an engineer in Tokyo helped Chirag refine the robust CLI and theme generator you see today, proving that great engineering has no borders.",
                     side: "left",
                   },
                 ].map((era, i) => (
@@ -259,7 +259,7 @@ export default function AboutPage() {
           <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-4 mb-16">
               <h2 className="text-3xl font-bold tracking-tight">
-                The CrossUI Advantage
+                The GetLotUI Advantage
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 We're building more than just a component library. We're
@@ -320,7 +320,7 @@ export default function AboutPage() {
                   Our Core Values
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  The principles that guide every decision we make at CrossUI.
+                  The principles that guide every decision we make at GetLotUI.
                 </p>
               </div>
               <div className="md:w-2/3 grid sm:grid-cols-2 gap-12">
@@ -413,7 +413,7 @@ export default function AboutPage() {
                       Built by Developers, <br /> For Developers.
                     </h2>
                     <p className="text-lg text-muted-foreground leading-relaxed">
-                      CrossUI was founded by Chirag Singh with a vision to
+                      GetLotUI was founded by Chirag Singh with a vision to
                       eliminate the friction between design and engineering.
                       After months of struggling with inconsistent
                       cross-platform styles, he decided to build the solution.
@@ -427,7 +427,7 @@ export default function AboutPage() {
                       </h4>
                       <p className="text-muted-foreground text-sm italic">
                         "My goal is to make high-fidelity cross-platform
-                        development as easy as editing a text file. CrossUI is
+                        development as easy as editing a text file. GetLotUI is
                         the culmination of that journey."
                       </p>
                     </div>
@@ -503,7 +503,7 @@ export default function AboutPage() {
                 Project Roadmap
               </h2>
               <p className="text-muted-foreground font-medium">
-                The future of CrossUI. See what we're building next.
+                The future of GetLotUI. See what we're building next.
               </p>
             </div>
             <div className="grid md:grid-cols-4 gap-4 relative">
@@ -588,7 +588,7 @@ export default function AboutPage() {
             <div className="text-left space-y-8">
               {[
                 {
-                  q: "Is CrossUI really free to use?",
+                  q: "Is GetLotUI really free to use?",
                   a: "Yes, the core framework and component library are open-source and free to use for both personal and commercial projects.",
                 },
                 {
@@ -597,7 +597,7 @@ export default function AboutPage() {
                 },
                 {
                   q: "How does it compare to React Native?",
-                  a: "While React Native focuses on JS-to-Native, CrossUI focuses on Design-Token-to-Native, ensuring consistent styling across Flutter, Expo, and Web with zero logic duplication.",
+                  a: "While React Native focuses on JS-to-Native, GetLotUI focuses on Design-Token-to-Native, ensuring consistent styling across Flutter, Expo, and Web with zero logic duplication.",
                 },
               ].map((faq, i) => (
                 <div
@@ -646,10 +646,10 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center space-x-2">
             <div className="h-6 w-6 rounded-lg bg-primary" />
-            <span className="font-bold tracking-tight">CrossUI</span>
+            <span className="font-bold tracking-tight">GetLotUI</span>
           </div>
           <p className="text-sm text-muted-foreground text-center">
-            &copy; 2026 CrossUI Project. Built with passion for the developer
+            &copy; 2026 GetLotUI Project. Built with passion for the developer
             community.
           </p>
           <div className="flex items-center gap-6">

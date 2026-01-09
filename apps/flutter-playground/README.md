@@ -1,6 +1,6 @@
-# CrossUI Flutter Playground
+# GetLotUI Flutter Playground
 
-This is a demonstration app for the `crossui_flutter` package. It showcases all the core components implemented in Flutter using the CrossUI design system.
+This is a demonstration app for the `getlotui_flutter` package. It showcases all the core components implemented in Flutter using the GetLotUI design system.
 
 ## Getting Started
 
