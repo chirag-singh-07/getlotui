@@ -16,8 +16,8 @@ export async function addCommand(component: string) {
     } catch {
       console.error(
         chalk.red(
-          "❌ getlotui.config.json not found. Run `getlotui init` first."
-        )
+          "❌ getlotui.config.json not found. Run `getlotui init` first.",
+        ),
       );
       return;
     }
@@ -28,7 +28,7 @@ export async function addCommand(component: string) {
     const componentsDir = path.resolve(
       cwd,
       config.componentsDir ||
-        (adapter === "flutter" ? "lib/components/ui" : "components/ui")
+        (adapter === "flutter" ? "lib/components/ui" : "components/ui"),
     );
 
     const componentName =
@@ -38,7 +38,7 @@ export async function addCommand(component: string) {
       "..",
       "templates",
       adapter,
-      `${componentName}.${extension}`
+      `${componentName}.${extension}`,
     );
 
     // Check if template exists
@@ -46,22 +46,22 @@ export async function addCommand(component: string) {
       await fs.access(templatePath);
     } catch {
       console.error(
-        chalk.red(`❌ Component "${componentName}" not found for ${adapter}.`)
+        chalk.red(`❌ Component "${componentName}" not found for ${adapter}.`),
       );
       console.log(
         chalk.blue(
-          `\n📚 Available components: Button, Input, Card, Badge, Avatar, Alert, AlertDialog, Accordion, Dropdown, Tabs, Toast`
-        )
+          `\n📚 Available components: Button, Input, Card, Badge, Avatar, Alert, AlertDialog, Accordion, Dropdown, Tabs, Toast, Carousel, Calendar, Breadcrumb, ButtonGroup, AspectRatio`,
+        ),
       );
       return;
     }
 
     await copyComponent(
       templatePath,
-      path.join(componentsDir, `${componentName}.${extension}`)
+      path.join(componentsDir, `${componentName}.${extension}`),
     );
     console.log(
-      chalk.green(`✓ Component ${componentName} added to ${componentsDir}`)
+      chalk.green(`✓ Component ${componentName} added to ${componentsDir}`),
     );
 
     // Install component-specific dependencies for web projects
@@ -71,8 +71,8 @@ export async function addCommand(component: string) {
       if (dependencies.length > 0) {
         console.log(
           chalk.blue(
-            `\n📦 Installing dependencies: ${dependencies.join(", ")}...`
-          )
+            `\n📦 Installing dependencies: ${dependencies.join(", ")}...`,
+          ),
         );
 
         const { spawn } = await import("child_process");
@@ -81,15 +81,15 @@ export async function addCommand(component: string) {
           packageManager === "yarn"
             ? "yarn"
             : packageManager === "pnpm"
-            ? "pnpm"
-            : "npm";
+              ? "pnpm"
+              : "npm";
 
         const installArgs =
           packageManager === "yarn"
             ? ["add", ...dependencies]
             : packageManager === "pnpm"
-            ? ["add", ...dependencies]
-            : ["install", ...dependencies];
+              ? ["add", ...dependencies]
+              : ["install", ...dependencies];
 
         await new Promise<void>((resolve) => {
           const proc = spawn(installCmd, installArgs, {
@@ -105,9 +105,9 @@ export async function addCommand(component: string) {
               console.warn(
                 chalk.yellow(
                   `⚠ Failed to install dependencies. Please run: ${installCmd} ${installArgs.join(
-                    " "
-                  )}`
-                )
+                    " ",
+                  )}`,
+                ),
               );
             }
             resolve();
@@ -115,12 +115,12 @@ export async function addCommand(component: string) {
 
           proc.on("error", (err) => {
             console.warn(
-              chalk.yellow(`⚠ Could not install dependencies: ${err.message}`)
+              chalk.yellow(`⚠ Could not install dependencies: ${err.message}`),
             );
             console.log(
               chalk.blue(
-                `Please run manually: ${installCmd} ${installArgs.join(" ")}`
-              )
+                `Please run manually: ${installCmd} ${installArgs.join(" ")}`,
+              ),
             );
             resolve();
           });
@@ -131,8 +131,8 @@ export async function addCommand(component: string) {
     // Provide usage hint
     console.log(
       chalk.blue(
-        `\n💡 Import it with: import { ${componentName} } from '@/components/ui/${componentName}'`
-      )
+        `\n💡 Import it with: import { ${componentName} } from '@/components/ui/${componentName}'`,
+      ),
     );
   } catch (err) {
     console.error(chalk.red("❌ Failed to add component:"), err);
