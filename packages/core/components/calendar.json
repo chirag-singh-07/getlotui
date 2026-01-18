@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "default": {
+      "textColor": "foreground",
+      "selectedBackgroundColor": "primary",
+      "selectedTextColor": "onPrimary",
+      "todayTextColor": "primary",
+      "disabledTextColor": "mutedForeground"
+    },
+    "outline": {
+      "textColor": "foreground",
+      "selectedBackgroundColor": "transparent",
+      "selectedTextColor": "primary",
+      "selectedBorderColor": "primary",
+      "todayTextColor": "primary",
+      "disabledTextColor": "mutedForeground"
+    }
+  },
+  "spacing": {
+    "dayPadding": "xs",
+    "cellPadding": "xs"
+  },
+  "typography": {
+    "dayFontSize": "sm",
+    "headerFontSize": "md"
+  },
+  "defaults": {
+    "variant": "default"
+  }
+}

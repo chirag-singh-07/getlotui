@@ -13,12 +13,21 @@ import avatarDef from "./components/avatar.json";
 import badgeDef from "./components/badge.json";
 import pressAnim from "./animations/press.json";
 import dropdownDef from "./components/dropdown.json";
+import aspectRatioDef from "./components/aspect-ratio.json";
+import breadcrumbDef from "./components/breadcrumb.json";
+import buttonGroupDef from "./components/button-group.json";
+import calendarDef from "./components/calendar.json";
+import carouselDef from "./components/carousel.json";
 
 // Export Tokens
 export const Tokens = {
   colors,
   spacing,
   radius,
+  breadcrumb: breadcrumbDef,
+  buttonGroup: buttonGroupDef,
+  calendar: calendarDef,
+  carousel: carouselDef,
 };
 
 // Export Component Definitions (Contracts)
@@ -34,6 +43,11 @@ export const Components = {
   Avatar: avatarDef,
   Badge: badgeDef,
   Dropdown: dropdownDef,
+  AspectRatio: aspectRatioDef,
+  Breadcrumb: breadcrumbDef,
+  ButtonGroup: buttonGroupDef,
+  Calendar: calendarDef,
+  Carousel: carouselDef,
 };
 
 // Export Animation configs

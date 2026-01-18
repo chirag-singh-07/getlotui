@@ -1,4 +1,11 @@
-import { Pressable, Text, StyleSheet, ViewStyle, Animated } from "react-native";
+import {
+  Pressable,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  Animated,
+  View,
+} from "react-native";
 import React, { useRef } from "react";
 
 import buttonSpec from "@crossui/core/components/button.json";
@@ -7,7 +14,9 @@ import spacing from "@crossui/core/tokens/spacing.json";
 import radius from "@crossui/core/tokens/radius.json";
 
 type ButtonProps = {
-  title: string;
+  title?: string;
+  children?: React.ReactNode;
+  icon?: React.ReactNode;
   variant?: keyof typeof buttonSpec.variants;
   size?: keyof typeof buttonSpec.sizes;
   onPress?: () => void;
@@ -15,6 +24,8 @@ type ButtonProps = {
 
 export function Button({
   title,
+  children,
+  icon,
   variant = buttonSpec.defaults.variant as keyof typeof buttonSpec.variants,
   size = buttonSpec.defaults.size as keyof typeof buttonSpec.sizes,
   onPress,
@@ -87,17 +98,28 @@ export function Button({
           },
         ]}
       >
-        <Text
-          style={{
-            color: txtColor,
-            fontSize: sizeConfig.fontSize,
-            fontWeight: "700",
-            textDecorationLine: textDecoration,
-            textAlign: "center",
-          }}
-        >
-          {title}
-        </Text>
+        <View style={styles.content}>
+          {icon && (
+            <View style={title || children ? styles.iconGap : null}>
+              {icon}
+            </View>
+          )}
+          {title ? (
+            <Text
+              style={{
+                color: txtColor,
+                fontSize: sizeConfig.fontSize,
+                fontWeight: "700",
+                textDecorationLine: textDecoration,
+                textAlign: "center",
+              }}
+            >
+              {title}
+            </Text>
+          ) : (
+            children
+          )}
+        </View>
       </Pressable>
     </Animated.View>
   );
@@ -108,6 +130,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+  },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconGap: {
+    marginRight: 8,
   },
   shadow: {
     shadowColor: "#000",

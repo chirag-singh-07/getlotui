@@ -41,7 +41,7 @@ export function SiteHeader() {
               Docs
             </Link>
             <Link
-              href="/docs/components/button"
+              href="/docs/components"
               className="transition-colors text-foreground/60 hover:text-primary"
             >
               Components

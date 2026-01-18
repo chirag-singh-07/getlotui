@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import {
   Sparkles,
@@ -38,6 +39,10 @@ const item = {
 };
 
 export default function AboutPage() {
+  React.useEffect(() => {
+    document.title = "About Us | GetLotUI";
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -543,8 +548,8 @@ export default function AboutPage() {
                       step.status === "Completed"
                         ? "bg-emerald-500/10 text-emerald-500"
                         : step.status === "In Progress"
-                        ? "bg-primary/10 text-primary"
-                        : "bg-muted/50 text-muted-foreground"
+                          ? "bg-primary/10 text-primary"
+                          : "bg-muted/50 text-muted-foreground"
                     }`}
                   >
                     <step.icon className="h-6 w-6" />
@@ -561,8 +566,8 @@ export default function AboutPage() {
                         step.status === "Completed"
                           ? "bg-emerald-500/10 text-emerald-500"
                           : step.status === "In Progress"
-                          ? "bg-primary/10 text-primary"
-                          : "bg-muted/10 text-muted-foreground"
+                            ? "bg-primary/10 text-primary"
+                            : "bg-muted/10 text-muted-foreground"
                       }`}
                     >
                       {step.status}

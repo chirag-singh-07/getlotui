@@ -7,7 +7,7 @@ enum CrossUIButtonVariant { primary, secondary, outline, ghost, destructive }
 enum CrossUIButtonSize { sm, defaultSize, lg }
 
 class CrossUIButton extends StatelessWidget {
-  final String label;
+  final String? label;
   final VoidCallback? onPressed;
   final CrossUIButtonVariant variant;
   final CrossUIButtonSize size;
@@ -16,7 +16,7 @@ class CrossUIButton extends StatelessWidget {
 
   const CrossUIButton({
     Key? key,
-    required this.label,
+    this.label,
     this.onPressed,
     this.variant = CrossUIButtonVariant.primary,
     this.size = CrossUIButtonSize.defaultSize,
@@ -98,18 +98,17 @@ class CrossUIButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null) ...[
-              icon!,
-              const SizedBox(width: 8),
-            ],
-            Text(
-              label,
-              style: TextStyle(
-                color: foregroundColor,
-                fontSize: fontSize,
-                fontWeight: FontWeight.w600,
+            if (icon != null) icon!,
+            if (icon != null && label != null) const SizedBox(width: 8),
+            if (label != null)
+              Text(
+                label!,
+                style: TextStyle(
+                  color: foregroundColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
           ],
         ),
       ),

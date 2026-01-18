@@ -10,7 +10,10 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GetLotUI - Cross-language design system",
+  title: {
+    template: "%s | GetLotUI",
+    default: "GetLotUI - Cross-language design system",
+  },
   description:
     "A cross-language, theme-driven design system inspired by shadcn/ui",
   generator: "v0.app",

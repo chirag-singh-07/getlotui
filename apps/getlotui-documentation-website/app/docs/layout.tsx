@@ -1,6 +1,6 @@
 "use client";
 
-import type React from "react";
+import * as React from "react";
 import { SiteHeader } from "@/components/site-header";
 import { DocsSidebar } from "@/components/docs-sidebar";
 import { TableOfContents } from "@/components/table-of-contents";
@@ -15,6 +15,34 @@ export default function DocsLayout({
 }) {
   // 2. Initialize usePathname
   const pathname = usePathname();
+
+  React.useEffect(() => {
+    const parts = pathname.split("/").filter(Boolean);
+    if (parts.length > 0) {
+      const lastPart = parts[parts.length - 1];
+
+      if (lastPart === "docs" && parts.length === 1) {
+        document.title = "Documentation | GetLotUI";
+        return;
+      }
+
+      let title = lastPart
+        .split("-")
+        .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+      // Handle special cases
+      if (pathname.includes("/docs/components")) {
+        title = `${title} Component`;
+      } else if (pathname.includes("/docs/theming")) {
+        title = `Theming: ${title}`;
+      }
+
+      document.title = `${title} | GetLotUI`;
+    } else {
+      document.title = "Documentation | GetLotUI";
+    }
+  }, [pathname]);
 
   return (
     <div className="flex min-h-screen flex-col">

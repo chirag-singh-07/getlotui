@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "horizontal": {
+      "flexDirection": "row",
+      "gap": 0
+    },
+    "vertical": {
+      "flexDirection": "column",
+      "gap": 0
+    }
+  },
+  "spacing": {
+    "default": "none"
+  },
+  "defaults": {
+    "variant": "horizontal"
+  }
+}

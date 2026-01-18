@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "default": {
+      "orientation": "horizontal",
+      "gap": "md",
+      "showButtons": true
+    },
+    "vertical": {
+      "orientation": "vertical",
+      "gap": "md",
+      "showButtons": true
+    }
+  },
+  "spacing": {
+    "itemGap": "md",
+    "padding": "md"
+  },
+  "defaults": {
+    "variant": "default"
+  }
+}

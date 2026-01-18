@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "default": {
+      "textColor": "muted",
+      "activeColor": "foreground",
+      "separatorColor": "muted"
+    }
+  },
+  "typography": {
+    "fontSize": "sm"
+  },
+  "spacing": {
+    "gap": "xs"
+  },
+  "icons": {
+    "separator": "chevron-right",
+    "ellipsis": "more-horizontal"
+  },
+  "defaults": {
+    "variant": "default"
+  }
+}

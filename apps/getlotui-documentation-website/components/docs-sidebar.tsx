@@ -8,7 +8,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-import { docsNav } from "@/config/docs";
+import { docsNav, CURRENT_VERSION } from "@/config/docs";
 
 export function DocsSidebar() {
   const pathname = usePathname();
@@ -66,7 +66,7 @@ export function DocsSidebar() {
                               "group relative flex w-full items-center rounded-md border border-transparent px-2 py-1.5 transition-all",
                               isActive
                                 ? "font-medium text-foreground bg-muted"
-                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                             )}
                           >
                             {isActive && (
@@ -83,6 +83,9 @@ export function DocsSidebar() {
                             <span className={cn(isActive && "pl-3")}>
                               {item.title}
                             </span>
+                            {(item as any).version === CURRENT_VERSION && (
+                              <span className="ml-2 flex h-2 w-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                            )}
                           </Link>
                         );
                       })}

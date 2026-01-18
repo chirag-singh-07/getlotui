@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "square": {
+      "ratio": 1
+    },
+    "landscape": {
+      "ratio": 1.7777777778
+    },
+    "portrait": {
+      "ratio": 0.75
+    },
+    "wide": {
+      "ratio": 2.3333333333
+    },
+    "ultrawide": {
+      "ratio": 3.5555555556
+    }
+  },
+  "defaults": {
+    "variant": "landscape"
+  }
+}

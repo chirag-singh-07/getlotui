@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -69,6 +70,10 @@ export default function LandingPage() {
   const { packageManager } = useFramework();
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
+
+  React.useEffect(() => {
+    document.title = "GetLotUI | Build Universal Apps Faster";
+  }, []);
 
   const y = useSpring(useTransform(scrollYProgress, [0, 1], [0, -100]), {
     stiffness: 100,
@@ -238,7 +243,7 @@ export default function LandingPage() {
                   >
                     {name}
                   </div>
-                )
+                ),
               )}
             </div>
           </div>
@@ -505,7 +510,7 @@ export default function LandingPage() {
                     <template.icon
                       className={`h-16 w-16 ${template.color.replace(
                         "bg-",
-                        "text-"
+                        "text-",
                       )} opacity-50 group-hover:scale-110 transition-transform duration-500`}
                     />
                   </div>

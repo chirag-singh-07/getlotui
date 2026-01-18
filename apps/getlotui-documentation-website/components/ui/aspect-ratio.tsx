@@ -1,11 +1,34 @@
-'use client'
+"use client";
 
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio'
+import * as AspectRatioPrimitive from "@radix-ui/react-aspect-ratio";
 
-function AspectRatio({
-  ...props
-}: React.ComponentProps<typeof AspectRatioPrimitive.Root>) {
-  return <AspectRatioPrimitive.Root data-slot="aspect-ratio" {...props} />
+const aspectRatioVariants = {
+  square: 1,
+  landscape: 16 / 9,
+  portrait: 3 / 4,
+  wide: 21 / 9,
+  ultrawide: 32 / 9,
+};
+
+type AspectRatioVariant = keyof typeof aspectRatioVariants;
+
+interface AspectRatioProps extends React.ComponentProps<
+  typeof AspectRatioPrimitive.Root
+> {
+  variant?: AspectRatioVariant;
 }
 
-export { AspectRatio }
+function AspectRatio({ variant, ratio, ...props }: AspectRatioProps) {
+  const finalRatio =
+    ratio ?? (variant ? aspectRatioVariants[variant] : undefined);
+
+  return (
+    <AspectRatioPrimitive.Root
+      data-slot="aspect-ratio"
+      ratio={finalRatio}
+      {...props}
+    />
+  );
+}
+
+export { AspectRatio };
