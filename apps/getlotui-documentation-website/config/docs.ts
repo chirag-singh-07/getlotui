@@ -1,4 +1,4 @@
-export const CURRENT_VERSION = "0.1.4";
+export const CURRENT_VERSION = "0.1.5";
 
 export const docsNav = [
   {
@@ -36,24 +36,24 @@ export const docsNav = [
       {
         title: "Breadcrumb",
         href: "/docs/components/breadcrumb",
-        version: "0.1.4",
+        version: "0.1.5",
       },
       { title: "Button", href: "/docs/components/button" },
       {
         title: "Button Group",
         href: "/docs/components/button-group",
-        version: "0.1.4",
+        version: "0.1.5",
       },
       {
         title: "Calendar",
         href: "/docs/components/calendar",
-        version: "0.1.4",
+        version: "0.1.5",
       },
       { title: "Card", href: "/docs/components/card" },
       {
         title: "Carousel",
         href: "/docs/components/carousel",
-        version: "0.1.4",
+        version: "0.1.5",
       },
       { title: "Dialog", href: "/docs/components/dialog" },
       { title: "Dropdown", href: "/docs/components/dropdown" },

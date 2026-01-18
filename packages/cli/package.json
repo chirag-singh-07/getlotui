@@ -1,6 +1,6 @@
 {
   "name": "getlotui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "CLI for GetLotUI component scaffolding",
   "main": "dist/index.js",
   "bin": {
