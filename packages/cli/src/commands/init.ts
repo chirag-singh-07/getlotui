@@ -7,21 +7,26 @@ import {
   detectWebProject,
   detectPackageManager,
 } from "../utils/detect";
+import { installPackages } from "../utils/install";
+import { setupWebStyles } from "../utils/styles";
 
 export async function initCommand() {
   try {
     const cwd = process.cwd();
     const configPath = path.join(cwd, "getlotui.config.json");
+
     // Check if config already exists
     try {
       await fs.access(configPath);
       console.log(
-        chalk.yellow("getlotui.config.json already exists. Skipping creation.")
+        chalk.yellow("⚠ getlotui.config.json already exists. Skipping init."),
       );
       return;
     } catch {
       // file does not exist, continue
     }
+
+    console.log(chalk.bold("\n🚀 Initializing GetLotUI...\n"));
 
     // Detect adapter
     let adapter: string = "unknown";
@@ -32,8 +37,12 @@ export async function initCommand() {
     } else if (await detectWebProject(cwd)) {
       adapter = "web";
     }
+
     // Detect package manager
     const packageManager = await detectPackageManager(cwd);
+
+    console.log(chalk.dim(`  Detected adapter:         ${adapter}`));
+    console.log(chalk.dim(`  Detected package manager: ${packageManager}\n`));
 
     const defaultConfig = {
       adapter,
@@ -46,10 +55,11 @@ export async function initCommand() {
     await fs.writeFile(
       configPath,
       JSON.stringify(defaultConfig, null, 2),
-      "utf8"
+      "utf8",
     );
+    console.log(chalk.green("  ✔ Created getlotui.config.json"));
 
-    // Create theme directory
+    // ── Theme directory ────────────────────────────────────────────────────
     const fullThemeDir = path.join(cwd, defaultConfig.themeDir);
     try {
       await fs.mkdir(fullThemeDir, { recursive: true });
@@ -66,7 +76,7 @@ class GetLotUITheme {
     'background': Color(0xFFFFFFFF),
     'foreground': Color(0xFF0F172A),
   };
-  
+
   static const radius = {
     'sm': 4.0,
     'md': 8.0,
@@ -91,14 +101,15 @@ class GetLotUITheme {
 
       await fs.writeFile(themeFilePath, themeContent, "utf8");
       console.log(
-        chalk.green(`✓ Created ${defaultConfig.themeDir}/${themeFileName}`)
+        chalk.green(`  ✔ Created ${defaultConfig.themeDir}/${themeFileName}`),
       );
     } catch (err) {
-      console.warn(chalk.yellow("Could not create theme directory:"), err);
+      console.warn(chalk.yellow("  ⚠ Could not create theme directory:"), err);
     }
 
-    // For web projects, create lib/utils.ts
+    // ── Web setup ──────────────────────────────────────────────────────────
     if (adapter === "web") {
+      // Create lib/utils.ts
       try {
         const libDir = path.join(cwd, "lib");
         await fs.mkdir(libDir, { recursive: true });
@@ -112,75 +123,24 @@ export function cn(...inputs: ClassValue[]) {
 }
 `;
         await fs.writeFile(utilsPath, utilsContent, "utf8");
-        console.log(chalk.green(`✓ Created lib/utils.ts`));
+        console.log(chalk.green("  ✔ Created lib/utils.ts"));
       } catch (err) {
-        console.warn(chalk.yellow("Could not create lib/utils.ts:"), err);
+        console.warn(chalk.yellow("  ⚠ Could not create lib/utils.ts:"), err);
       }
 
-      // Install required dependencies
-      console.log(chalk.blue("\n📦 Installing required dependencies..."));
-      const { spawn } = await import("child_process");
+      // Install core dependencies
+      console.log(chalk.blue("\n📦 Installing core dependencies..."));
+      await installPackages(
+        ["clsx", "tailwind-merge", "class-variance-authority"],
+        cwd,
+        packageManager,
+      );
 
-      const dependencies = [
-        "clsx",
-        "tailwind-merge",
-        "class-variance-authority",
-      ];
-
-      const installCmd =
-        packageManager === "yarn"
-          ? "yarn"
-          : packageManager === "pnpm"
-          ? "pnpm"
-          : "npm";
-
-      const installArgs =
-        packageManager === "yarn"
-          ? ["add", ...dependencies]
-          : packageManager === "pnpm"
-          ? ["add", ...dependencies]
-          : ["install", ...dependencies];
-
-      await new Promise<void>((resolve, reject) => {
-        const proc = spawn(installCmd, installArgs, {
-          cwd,
-          stdio: "inherit",
-          shell: true,
-        });
-
-        proc.on("close", (code) => {
-          if (code === 0) {
-            console.log(chalk.green(`✓ Dependencies installed successfully`));
-            resolve();
-          } else {
-            console.warn(
-              chalk.yellow(
-                `⚠ Failed to install dependencies. Please run: ${installCmd} ${installArgs.join(
-                  " "
-                )}`
-              )
-            );
-            resolve(); // Don't reject, just warn
-          }
-        });
-
-        proc.on("error", (err) => {
-          console.warn(
-            chalk.yellow(
-              `⚠ Could not install dependencies automatically: ${err.message}`
-            )
-          );
-          console.log(
-            chalk.blue(
-              `Please run manually: ${installCmd} ${installArgs.join(" ")}`
-            )
-          );
-          resolve(); // Don't reject, just warn
-        });
-      });
+      // Auto-configure styles (globals.css + tailwind.config)
+      await setupWebStyles(cwd);
     }
 
-    // For Expo projects, create utils/cn.ts
+    // ── Expo setup ─────────────────────────────────────────────────────────
     if (adapter === "expo") {
       try {
         const utilsDir = path.join(cwd, "utils");
@@ -197,13 +157,13 @@ export function cn(...inputs: any[]) {
 }
 `;
         await fs.writeFile(utilsPath, utilsContent, "utf8");
-        console.log(chalk.green(`✓ Created utils/cn.ts`));
+        console.log(chalk.green("  ✔ Created utils/cn.ts"));
       } catch (err) {
-        console.warn(chalk.yellow("Could not create utils/cn.ts:"), err);
+        console.warn(chalk.yellow("  ⚠ Could not create utils/cn.ts:"), err);
       }
     }
 
-    // For Flutter projects, create lib/utils.dart
+    // ── Flutter setup ──────────────────────────────────────────────────────
     if (adapter === "flutter") {
       try {
         const libDir = path.join(cwd, "lib");
@@ -225,21 +185,22 @@ class GetLotUIUtils {
 }
 `;
         await fs.writeFile(utilsPath, utilsContent, "utf8");
-        console.log(chalk.green(`✓ Created lib/utils.dart`));
+        console.log(chalk.green("  ✔ Created lib/utils.dart"));
       } catch (err) {
-        console.warn(chalk.yellow("Could not create lib/utils.dart:"), err);
+        console.warn(chalk.yellow("  ⚠ Could not create lib/utils.dart:"), err);
       }
     }
 
+    // ── Done ───────────────────────────────────────────────────────────────
     console.log(
-      chalk.green(
-        `\n✨ GetLotUI initialized with ${adapter} (${packageManager}) defaults.`
-      )
+      chalk.bold.green(
+        `\n✨ GetLotUI initialized successfully! (${adapter} · ${packageManager})\n`,
+      ),
     );
-    console.log(chalk.blue(`\n📚 Next steps:`));
-    console.log(chalk.white(`  1. Run: getlotui add <component>`));
-    console.log(chalk.white(`  2. Import and use components in your app`));
+    console.log(chalk.blue("📚 Next steps:"));
+    console.log(chalk.white("  1. Run: getlotui add <component>"));
+    console.log(chalk.white("  2. Import and use components in your app\n"));
   } catch (err) {
-    console.error(chalk.red("Failed to initialize GetLotUI config:"), err);
+    console.error(chalk.red("\n❌ Failed to initialize GetLotUI:"), err);
   }
 }
